@@ -15,12 +15,15 @@
           · 登记前 先查询 提高成功率 ·
         </van-divider>
       </div>
-      <van-search placeholder="请输入需要登记的版权信息" :class="className" />
+      <van-search v-model:value="value" @search="onInput" placeholder="请输入需要登记的版权信息" :class="className" />
     </div>
   </div>
 </template>
 
 <script>
+  import { WeChatCopyrightFinanceExist} from "../api/wechat";
+  import { Dialog } from 'vant';
+
   export default {
     props: {
       backgroundcolor: {
@@ -43,10 +46,15 @@
     data() {
       return {
         borderImg: require('@/assets/images/border.png'),
+        value: '',
       }
     },
     methods: {
-
+      async onInput(e) {
+        const { message, error, ...rest } = await WeChatCopyrightFinanceExist(this.value);
+        const msg = message ? (message + ' error: ' + error) : rest && rest.msg || '';
+        Dialog({ message: msg });
+      }
     }
   }
 </script>

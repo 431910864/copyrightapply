@@ -8,27 +8,29 @@
     </header>
     <div class="loginForm">
       <van-form @submit="onSubmit">
-<!--        <van-field v-model="data.userName" placeholder="姓名" />-->
-        <van-field v-model="data.username" placeholder="手机号" />
+        <van-field v-model="data.username" placeholder="用户名" />
+        <van-field v-model="data.realName" placeholder="姓名或企业名称" />
+        <van-field v-model="data.mobile" placeholder="手机号" />
         <van-field v-model="data.password" placeholder="密码" />
+        <van-field v-model="data.dPassword" placeholder="再次输入密码" />
         <div style="display: flex;flex-direction: row;height: 0.86rem;margin: 0 auto 0.3rem auto;width: 6.48rem;">
           <van-field maxlength="4" style="margin-bottom: 0;flex: 1;border-radius: 4px 0 0 4px;border-right: 0;" v-model="code" placeholder="验证码" />
           <vue-img-verify style="border-radius: 0 4px 4px 0;overflow: hidden;" @getImgCode="getImgCode" ref="vueImgVerify" />
         </div>
       </van-form>
     </div>
-    <div @click="onSubmit" class="submitBtn">登录</div>
+    <div class="submitBtn" @click="onSubmit">注册</div>
   </div>
 </template>
 <script>
   import {
     Button, Dialog
   } from 'vant';
-  import { WeChatToken } from "../api/wechat";
-  import VueImgVerify from '../components/vueImgVerify'
+  import { WeChatUser } from "../api/wechat";
+  import VueImgVerify from "../components/vueImgVerify";
 
   export default {
-    name: 'HelloWorld',
+    name: 'Register',
     components: {
       Button,
       VueImgVerify,
@@ -38,8 +40,13 @@
         code: '',
         imgCode: '',
         data: {
+          mobile: '',
           password: '',
+          realName: '',
           username: '',
+          wxCode: '',
+          dPassword: '',
+          code: '',
         },
         logoImg: require('@/assets/images/logo.png')
       }
@@ -54,22 +61,20 @@
       },
       async onSubmit() {
         this.imgCode = this.getCode();
-        if (this.data.password && this.data.username) {
+        if (this.data.password === this.data.dPassword) {
           if (this.code.toLowerCase() !== this.imgCode.toLowerCase()) {
             Dialog({ message: '验证码错误' });
             return;
           }
           const data = { ...this.data };
-          const user = await WeChatToken(data);
-          console.info(user);
+          delete data.dPassword;
+          delete data.code;
+          const user = await WeChatUser(data);
           const jwt = user.data;
           locache.set('jwt', jwt);
-          if (jwt) {
-            console.info(jwt);
-            this.$router.replace('mine');
-          }
+          this.$router.replace('mine');
         } else {
-          Dialog({ message: '请输入用户名密码' });
+          Dialog({ message: '两次密码输入的不一致' });
         }
       }
     }

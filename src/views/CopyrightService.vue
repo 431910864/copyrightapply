@@ -4,12 +4,12 @@
     <div class="loginForm">
       <van-form @submit="onSubmit">
         <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
-        <van-field v-model="data.type" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent" />
-        <van-field v-model="data.userPhone" placeholder="请输入您的企业名称或姓名" />
-        <van-field v-model="data.password" placeholder="请输入手机号" />
+        <van-field v-model="data.busiName" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent" />
+        <van-field v-model="data.enterpriseName" placeholder="请输入您的企业名称或姓名" />
+        <van-field v-model="data.mobile" placeholder="请输入手机号" />
       </van-form>
     </div>
-    <div class="submitBtn">提交申请</div>
+    <div @click="onSubmit" class="submitBtn">提交申请</div>
 
     <div class="advantageSection serviceSection">
       <div style="width: 4rem; margin: 0 auto .3rem auto;">
@@ -63,6 +63,8 @@
 <script>
   import copyrightHead from '@/components/copyrightHead.vue'
   import coreAdvantage from '@/components/coreAdvantage.vue'
+  import {WeChatCopyrightFinance} from "../api/wechat";
+  import {Dialog} from "vant";
   export default {
     components: {
       copyrightHead,
@@ -73,7 +75,11 @@
         show: false,
         showBorder: false,
         data: {
-
+          "busiType": "",
+          "enterpriseName": "",
+          "financialDemandLimit": "",
+          "iprCount": "",
+          "mobile": "",
         },
         backgroundImage: require('@/assets/images/copyrightservice.png'),
         worksImg: require('@/assets/images/works.png'),
@@ -86,23 +92,16 @@
           color:'#9350e5',
           borderColor: '#9350e5',
         },
-        actions: [{
-          name: '软件测试'
-        }, {
-          name: '版权交易'
-        }, {
-          name: 'DCI服务'
-        }, {
-          name: '政府项目申报'
-        }, {
-          name: '专利'
-        }, {
-          name: '商标'
-        }, {
-          name: '维权监测'
-        }, {
-          name: '诉讼存证'
-        }],
+        busiType: {
+          "RJCS":"软件测试",
+          "BQJY":"版权交易",
+          "DCI_FW":"DCI服务",
+          "ZFXMSB":"政府项目申报",
+          "ZHUAN_LI":"专利",
+          "SHANG_BIAO":"商标",
+          "WQJC":"维权监测",
+          "SSCZ":"诉讼存证",
+        },
         list: [{
           name: '软件测试',
           icon: require('@/assets/images/service_6.png')
@@ -146,16 +145,35 @@
         }]
       }
     },
+    computed: {
+      actions() {
+        let data = [];
+        for (const i in this.busiType) {
+          data.push({
+            type: i,
+            name: this.busiType[i]
+          })
+        }
+        return data;
+      }
+    },
     methods: {
       handelEvent() {
         this.show = true;
       },
       onSelect(item) {
         this.show = false;
-        this.data.type = item.name;
+        this.data.busiType = item.type;
+        this.data.busiName = item.name;
       },
-      onSubmit() {
-
+      async onSubmit() {
+        const datas = {...this.data};
+        const { data } = await WeChatCopyrightFinance(datas) || {};
+        if (data) {
+          Dialog({ message: '申请成功' });
+        } else {
+          Dialog({ message: '申请失败' });
+        }
       }
     }
   }

@@ -1,8 +1,8 @@
 <template>
   <div class="pageWrapper">
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(item, key) in images" :key="key">
-        <img :src="item" class="carouselImgs" />
+      <van-swipe-item @click="handleClick1(item)" v-for="(item, key) in images" :key="key">
+        <img :src="item.src" class="carouselImgs" />
       </van-swipe-item>
     </van-swipe>
     <div class="section">
@@ -65,6 +65,25 @@
             label: '作品著作权'
           }
         ],
+        busiType1: {
+          "RJZZQ":"软件著作权",
+          "ZPZZQ":"作品著作权",
+        },
+        busiType2: {
+          "ZYDK": "质押贷款",
+          "ZQDJ":"质权登记",
+          "CXZY":"撤销质押",
+        },
+        busiType3: {
+          "RJCS":"软件测试",
+          "BQJY":"版权交易",
+          "DCI_FW":"DCI服务",
+          "ZFXMSB":"政府项目申报",
+          "ZHUAN_LI":"专利",
+          "SHANG_BIAO":"商标",
+          "WQJC":"维权监测",
+          "SSCZ":"诉讼存证",
+        },
         list2: [{
             icon: require('@/assets/images/service_3.png'),
             label: '质押贷款',
@@ -76,7 +95,7 @@
           },
           {
             icon: require('@/assets/images/service_5.png'),
-            label: '撤销质权'
+            label: '撤销质押'
           }
         ],
         list3: [{
@@ -143,14 +162,49 @@
           icon: 'photo-o'
         }],
         images: [
-          require('@/assets/images/serviceBanner.png'),
-          require('@/assets/images/serviceBanner.png')
+          {
+            name: '质押贷款',
+            src: require('@/assets/images/serviceBanner.png')
+          },
+          {
+            name: '质押贷款',
+            src: require('@/assets/images/serviceBanner.png')
+          }
         ]
+      }
+    },
+    computed: {
+      busiType() {
+        return {
+          ...this.busiType1,
+          ...this.busiType2,
+          ...this.busiType3,
+        }
       }
     },
     methods: {
       handleClick(type, item) {
-        this.$router.push({path: '/copyrightTypes', query: {type}});
+        this.$router.push({path: '/copyrightTypes', query: {type,...this.getbusiType(item.label)}});
+      },
+      handleClick1(item) {
+        const data = this.getbusiType(item.name) || {};
+        const type = this.getType(data.busiType);
+        this.$router.push({path: '/copyrightTypes', query: { type, ...data }});
+      },
+      getType(type) {
+        if (this.busiType1[type]) return 1;
+        if (this.busiType2[type]) return 2;
+        if (this.busiType3[type]) return 3;
+      },
+      getbusiType(name) {
+        for (var i in this.busiType) {
+          if (this.busiType[i] === name) {
+            return {
+              busiType: i,
+              busiName: this.busiType[i],
+            };
+          }
+        }
       }
     }
   }

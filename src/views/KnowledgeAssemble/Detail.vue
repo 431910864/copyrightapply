@@ -1,28 +1,32 @@
 <template>
   <div class="pageWrapper">
     <header class="header">
-      <div class="title">{{title}}</div>
+      <div class="title">{{detail.title}}</div>
       <div class="tip">
-        <span class="merchant">南山版权产业服务中心</span>
-        <span class="date">{{date}}</span>
+        <span class="merchant">{{detail.describe}}</span>
+        <span class="date">{{detail.date}}</span>
       </div>
     </header>
-    <div class="contentList" v-for="(item, key) in list" :key="key">
-      <div class="subTitle">{{item.subtitle}}</div>
-      <div class="content">{{item.content}}</div>
-      <div class="newsImg"><img :src="item.img" class="" /></div>
-      <div class="hotTip">
-        <div class="reads">阅读 {{item.read}}</div>
-        <div class="reading">在看{{item.reading}}</div>
-      </div>
-    </div>
+    <div class="contentList" v-html="detail.content"></div>
+<!--    <div class="contentList" v-for="(item, key) in list" :key="key">-->
+<!--      <div class="subTitle">{{item.subtitle}}</div>-->
+<!--      <div class="content">{{item.content}}</div>-->
+<!--      <div class="newsImg"><img :src="item.img" class="" /></div>-->
+<!--      <div class="hotTip">-->
+<!--        <div class="reads">阅读 {{item.read}}</div>-->
+<!--        <div class="reading">在看{{item.reading}}</div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script>
+  import { WeChatCentralInfoGetID } from "../../api/wechat";
+
   export default {
     data() {
       return {
+        detail: {},
         title: '如何有效防范商标被撤三的风险',
         date: '昨天',
         list: [{
@@ -37,7 +41,17 @@
       }
     },
     mounted() {
-
+      this.GetDetail();
+    },
+    methods: {
+      async GetDetail() {
+        const id = this.$route.query.id;
+        const locacheGetName = this.$route.query.locacheGetName;
+        const detail = this.$locache.get(locacheGetName);
+        console.info(detail);
+        this.detail = detail;
+        // const data = await WeChatCentralInfoGetID(id);
+      }
     }
   }
 </script>
@@ -79,7 +93,6 @@
         }
       }
     }
-
     .contentList {
       margin-bottom: .2rem;
       .newsImg {
@@ -120,5 +133,13 @@
         }
       }
     }
+  }
+</style>
+<style>
+  .contentList img {
+    max-width: 100%;
+  }
+  .contentList p {
+    word-break: break-all;
   }
 </style>

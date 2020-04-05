@@ -3,12 +3,14 @@
     <header class="header searchBox">
       <van-search v-model="searchKey" placeholder="请输入搜索关键词" />
     </header>
-    <van-tabs sticky title-active-color="#2e4bd4">
+    <van-tabs v-model="active" sticky title-active-color="#2e4bd4">
       <van-tab v-for="(item, key) in types" :title="item.label" :key="key">
-        <van-list class="contentList" v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-          <van-cell v-for="(vo, index) in list" :key="index" @click="handleEvent(vo, index)">
+        <van-list class="contentList" v-model="item.loading" :finished="item.finished" finished-text="没有更多了" @load="onLoad">
+          <van-cell v-for="(vo, index) in item.list" :key="index" @click="handleEvent(vo, index)">
             <div class="unit">
-              <img :src="vo.img" class="images" />
+              <div class="images">
+                <img :src="vo.img" />
+              </div>
               <div class="contentDes">
                 <div class="title">{{vo.title}}</div>
                 <div class="contentType">{{vo.type}}</div>
@@ -24,75 +26,159 @@
 </template>
 
 <script>
+  import {pages, WeChatCentralInfo, WeChatHotKnowledge, WeChatIprPolicy} from "../../api/wechat";
   export default {
     data() {
       return {
-        list: [{
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: '商标',
-          describe: '商标注册和专利申请有哪些程序要走?各个...',
-          date: '2020-03-09',
-          id: '14647974669779'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: '软件测试',
-          describe: '商标注册和专利申请有哪些程序要走?各个...',
-          date: '2020-03-09',
-          id: '14647974669779'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: '政府项目申请',
-          describe: '商标注册和专利申请有哪些程序要走?各个...',
-          date: '2020-03-09',
-          id: '325674553555'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: 'DCI服务',
-          describe: '商标注册和专利申请有哪些程序要走?各个...',
-          date: '2020-03-09',
-          id: '4675868433463'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: '专利',
-          describe: '商标注册和专利申请有哪些程序要走?各个...',
-          date: '2020-03-09',
-          id: '54655766868787'
-        }],
-        loading: false,
-        finished: false,
         searchKey: '',
         types: [{
           type: '0',
-          label: '热门知识'
+          label: '热门知识',
+          list: [],
+          loading: false,
+          finished: false,
+          searchKey: '',
+          data: [],
+          count: null,
+          page: 0,
+          pageData: {},
+          timer: null,
+          isRefresh: false,  //是否在刷新
         }, {
           type: '1',
-          label: '知产政策'
+          label: '知产政策',
+          list: [],
+          loading: false,
+          finished: false,
+          searchKey: '',
+          data: [],
+          count: null,
+          page: 0,
+          pageData: {},
+          timer: null,
+          isRefresh: false,  //是否在刷新
         }],
-        data: []
-      };
+        active: '0',
+      }
+    },
+    computed: {
+      list() {
+        return this.types[this.active].list;
+      },
+      loading() {
+        return this.types[this.active].loading;
+      },
+      finished() {
+        return this.types[this.active].finished;
+      },
+      searchKey() {
+        return this.types[this.active].searchKey;
+      },
+      data() {
+        return this.types[this.active].data;
+      },
+      count() {
+        return this.types[this.active].count;
+      },
+      page() {
+        return this.types[this.active].page;
+      },
+      pageData() {
+        return this.types[this.active].pageData;
+      },
+      timer() {
+        return this.types[this.active].timer;
+      },
+      isRefresh() {
+        return this.types[this.active].isRefresh;
+      },  //是否在刷新
+      IsMaxPage() {
+        return this.pageData.maxPage && this.page >= this.pageData.maxPage; // typeof this.count === 'number' && this.list.length >= this.count;
+      }
     },
     mounted() {
-      //this.data = JSON.parse(JSON.stringify(this.list))
+      this.loadInit();
     },
     methods: {
       handleEvent(item, key) {
-        this.$router.push({path: 'detail', query: {id: item.id}})
+        const locacheGetName = ('indexList' + this.active + '-' + item.id);
+        this.$locache.set(locacheGetName, item);
+        this.$router.push({
+          path: 'detail',
+          query: {
+            id: item.id,
+            locacheGetName,
+          }
+        })
       },
-      onLoad() {
-        setTimeout(() => {
-          for (let i = 0; i < 10; i++) {
-            this.list.push(this.list[0]);
+      loadInit() {
+        // const { jwt } = locache.get('jwt') || {};
+        // const list = locache.get('indexList' + jwt);
+        // if (list) {
+        //   this.list = list;
+        // }
+      },
+      onRefresh() {
+        this.list = [];
+        this.page = 0;
+        this.finished = false;
+        this.init();
+      },
+      init() {
+        if (!this.timer) {
+          this.types[this.active].timer = setTimeout(() => {
+            this.onLoad();       //请求商品数据的方法
+            this.types[this.active].timer = null;
+          }, 0)
+        }
+      },
+      async onLoad() {
+        const {jwt} = locache.get('jwt') || {};
+        const $this = this.types[this.active];
+        if (this.IsMaxPage || $this.isRequire) {
+          return;
+        }
+        if (!$this.pageData.maxPage || $this.page < $this.pageData.maxPage) {
+          $this.page++;
+        } else {
+          return;
+        }
+        $this.isRequire = true;
+        let data;
+        if (this.active === 0) {
+          data = await WeChatHotKnowledge($this.page);
+        } else {
+          data = await WeChatIprPolicy($this.page);
+        }
+        if (data) {
+          let list = data.data;
+          $this.count = data.count;
+          list = list.map((item) => {
+            return {
+              ...item,
+              img: item.coverImage,
+              title: item.title,
+              describe: item.author,
+              date: item.publishTime,
+              id: item.id,
+              content: item.content,
+              type: 0,
+            }
+          });
+          $this.list = $this.list.concat(list);
+          $this.loading = false;
+          $this.isRefresh = false;
+          $this.pageData = pages($this.list, $this.count);
+          if ($this.IsMaxPage) {
+            $this.finished = true;
           }
-          this.loading = false;
-          if (this.list.length >= 40) {
-            this.finished = true;
-          }
-        }, 1000);
+          // locache.set('indexList' + jwt, this.list);
+        } else {
+          $this.loading = false;
+          $this.finished = true;
+          $this.isRefresh = false;
+        }
+        $this.isRequire = false;
       }
     }
   }
@@ -125,6 +211,9 @@
         display: flex;
         display: -webkit-flex;
         align-items: center;
+        .contentDes {
+          flex: 1;
+        }
         .title{
           font-family:PingFangSC-Medium;
           font-size:.32rem;
@@ -157,6 +246,9 @@
           width: 2.2rem;
           height: 1.7rem;
           margin-right: .2rem;
+          img {
+            width: 100%;
+          }
         }
       }
     }

@@ -12,6 +12,12 @@ const CenterIntroduction = () => import('@/views/KnowledgeAssemble/CenterIntrodu
 const CenterNews = () => import('@/views/KnowledgeAssemble/CenterNews');
 const Login = () => import('@/views/Login');
 const NotFund = () => import('@/components/NotFund');
+const EditPassword = () => import('@/views/EditPassword');
+const Register = () => import('@/views/Register');
+const CopyrightName = () => import('@/views/CopyrightName');
+const HandlingStatus = () => import('@/views/HandlingStatus');
+const MyService = () => import('@/views/MyService');
+const Setting = () => import('@/views/Setting');
 
 export default [{
     path: '/',
@@ -112,9 +118,57 @@ export default [{
     path: '/login',
     name: '登录',
     meta: {
-      title: '登录'
+      title: '会员登录'
     },
     component: Login
+  },
+  {
+    path: '/editPassword',
+    name: '修改密码',
+    meta: {
+      title: '修改密码'
+    },
+    component: EditPassword
+  },
+  {
+    path: '/register',
+    name: '会员注册',
+    meta: {
+      title: '会员注册'
+    },
+    component: Register
+  },
+  {
+    path: '/copyrightName',
+    name: '版权名称',
+    meta: {
+      title: '版权名称'
+    },
+    component: CopyrightName
+  },
+  {
+    path: '/handlingStatus',
+    name: '办理状态',
+    meta: {
+      title: '办理状态'
+    },
+    component: HandlingStatus
+  },
+  {
+    path: '/myService',
+    name: '我的服务',
+    meta: {
+      title: '我的服务'
+    },
+    component: MyService
+  },
+  {
+    path: '/setting',
+    name: '设置',
+    meta: {
+      title: '设置'
+    },
+    component: Setting
   },
   {
     path: '/notFund',

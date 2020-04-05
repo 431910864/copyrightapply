@@ -1,13 +1,5 @@
 <template>
   <div class="pageWrapper">
-    <header class="header">
-      <div @click="toLogin" class="content">
-        <img class="portrait" :src="GetUserInfo.headimgurl || moreImg"/>
-        <div class="baseInfo">
-          <div class="nickName">{{GetUserInfo.openid ? GetUserInfo.nickname : status[loginStatus]}}</div>
-        </div>
-      </div>
-    </header>
     <div class="section">
       <ul class="commonEssue">
         <li v-for="(item, key) in lists" :key="key" @click="handleClick(item, key)">
@@ -25,7 +17,6 @@
   import {
     Button
   } from 'vant';
-  import {mapState} from 'vuex';
   export default {
     name: 'HelloWorld',
     components: {
@@ -33,50 +24,26 @@
     },
     data() {
       return {
-        jwt: '',
-        loginStatus: '',
-        status: ['未登陆', '已登陆'],
         data: {
+          nickName: 'zhangsan',
+          phone: '131****463',
+          jwt: locache.get('jwt'),
         },
         moreImg: require('@/assets/images/portrait.jpg'),
         list1: [
-          // {
-          //   icon: require('@/assets/images/idCerti.png'),
-          //   label: '我的证书'
-          // },
-          {
-            icon: require('@/assets/images/service.png'),
-            label: '我的服务',
-            route: '/MyService'
-          },
-          // {
-          //   icon: require('@/assets/images/message.png'),
-          //   label: '消息通知'
-          // },
           {
             icon: require('@/assets/images/help.png'),
-            label: '中心简介',
-            route: '/centerIntroduction',
+            label: '修改密码',
+            route: '/editPassword',
           },
           {
-            icon: require('@/assets/images/settings.png'),
-            label: '中心资讯',
-            route: '/centerNews',
-          },
-          {
-            icon: require('@/assets/images/settings.png'),
-            label: '知识政策',
-            route: '/indexList',
-          },
-          // {
-          //   icon: require('@/assets/images/help.png'),
-          //   label: '帮助中心'
-          // },
-          {
-            icon: require('@/assets/images/settings.png'),
-            label: '设置',
-            route: '/setting',
             isUserInfo: true,
+            icon: require('@/assets/images/settings.png'),
+            label: '退出登陆',
+            route: ($this) => {
+              locache.remove('jwt');
+              $this.$router.replace('mine');
+            },
           },
         ],
         images: [
@@ -86,38 +53,28 @@
       }
     },
     computed: {
-      ...mapState({
-        UserInfo: state => {
-          return state.UserInfo;
-        },
-      }),
-      GetUserInfo() {
-        return this.UserInfo || {};
-      },
       lists() {
         return this.list1.filter((item) => {
-          if (item.isUserInfo && (locache.get('userInfo') || locache.get('jwt'))) {
+          if (item.isUserInfo && locache.get('userInfo')) {
             return false;
           }
           return true;
         })
       }
     },
-    mounted() {
-      setTimeout(() => {
-        this.jwt = locache.get('jwt');
-        this.loginStatus = Number(!!locache.get('jwt'));
-      }, 200);
-    },
     methods: {
       handleClick(item, key) {
+        if (typeof item.route === 'function') {
+          item.route(this);
+          return;
+        }
         this.$router.push(item.route)
       },
       onChange(index) {
 
       },
       toLogin() {
-        this.$router.push(!this.GetUserInfo.openid ? '/login' : '/setting')
+        !this.jwt && this.$router.push('/login')
       }
     }
   }

@@ -1,101 +1,127 @@
 <template>
   <div class="pageWrapper">
-    <header class="header">
-      <div class="text">
-        <div class="">南山版权产业服务中心</div>
-        <div class="">为科技企业提供“一站式”服务</div>
-      </div>
-    </header>
-    <van-list class="contentList" v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-      <van-cell v-for="(vo, index) in list" :key="index" @click="handleEvent(vo, index)">
-        <div class="unit">
-          <div class="contentDes">
-            <div class="title">{{vo.title}}</div>
-            <div class="describe">{{vo.describe}}</div>
-            <div class="date">{{vo.date}}</div>
-          </div>
-          <van-icon name="arrow" />
+    <van-pull-refresh class="pageWrapper" v-model="isRefresh" @refresh="onRefresh">
+      <header class="header">
+        <div class="text">
+          <div class="">南山版权产业服务中心</div>
+          <div class="">为科技企业提供“一站式”服务</div>
         </div>
-      </van-cell>
-    </van-list>
+      </header>
+      <van-list class="contentList" v-model="loading" :finished="finished" finished-text="没有更多了" @load="init">
+        <van-cell v-for="(vo, index) in list" :key="index" @click="handleEvent(vo, index)">
+          <div class="unit">
+            <div class="contentDes">
+              <div class="title">{{vo.title}}</div>
+              <div class="describe">{{vo.describe}}</div>
+              <div class="date">{{vo.date}}</div>
+            </div>
+            <van-icon name="arrow" />
+          </div>
+        </van-cell>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
 <script>
+  import {pages, WeChatCentralInfo} from "../../api/wechat";
+
   export default {
     data() {
       return {
-        list: [{
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什申请注册的商标对颜色有什...',
-          type: '商标',
-          describe: '南方版权产业服务中心',
-          date: '2020-03-09',
-          id: '14647974669779'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: '软件测试',
-          describe: '南方版权产业服务中心?各个...',
-          date: '2020-03-09',
-          id: '14647974669779'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: '政府项目申请',
-          describe: '南方版权产业服务中心?各个...',
-          date: '2020-03-09',
-          id: '325674553555'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: 'DCI服务',
-          describe: '商标注册和专利申请有哪些程序要走?各个...',
-          date: '2020-03-09',
-          id: '4675868433463'
-        }, {
-          img: require('@/assets/images/demo.png'),
-          title: '申请注册的商标对颜色有什...',
-          type: '专利',
-          describe: '南方版权产业服务中心?各个...',
-          date: '2020-03-09',
-          id: '54655766868787'
-        }],
+        list: [],
         loading: false,
         finished: false,
         searchKey: '',
-        types: [{
-          type: '0',
-          label: '热门知识'
-        }, {
-          type: '1',
-          label: '知产政策'
-        }],
-        data: []
-      };
+        data: [],
+        count: null,
+        page: 0,
+        pageData: {},
+        timer: null,
+        isRefresh: false,  //是否在刷新
+      }
+    },
+    computed: {
+      IsMaxPage() {
+        return this.pageData.maxPage && this.page >= this.pageData.maxPage; // typeof this.count === 'number' && this.list.length >= this.count;
+      }
     },
     mounted() {
-      //this.data = JSON.parse(JSON.stringify(this.list))
+      this.loadInit();
     },
     methods: {
       handleEvent(item, key) {
+        const locacheGetName = ('centerNews' + item.id);
+        this.$locache.set(locacheGetName, item);
         this.$router.push({
           path: 'detail',
           query: {
-            id: item.id
+            id: item.id,
+            locacheGetName,
           }
         })
       },
-      onLoad() {
-        setTimeout(() => {
-          for (let i = 0; i < 10; i++) {
-            this.list.push(this.list[0]);
-          }
+      loadInit() {
+        // const { jwt } = locache.get('jwt') || {};
+        // const list = locache.get('CenterNews' + jwt);
+        // if (list) {
+        //   this.list = list;
+        // }
+      },
+      onRefresh() {
+        this.list = [];
+        this.page = 0;
+        this.finished = false;
+        this.init();
+      },
+      init() {
+        if(!this.timer){
+          this.timer = setTimeout(() => {
+            this.onLoad();       //请求商品数据的方法
+            this.timer = null;
+          }, 0)
+        }
+      },
+      async onLoad() {
+        const { jwt } = locache.get('jwt') || {};
+        if (this.IsMaxPage || this.isRequire) {
+          return;
+        }
+        if (!this.pageData.maxPage || this.page < this.pageData.maxPage) {
+          this.page++;
+        } else {
+          return;
+        }
+        this.isRequire = true;
+        const data = await WeChatCentralInfo(this.page);
+        if (data) {
+          let list = data.data;
+          this.count = data.count;
+          list = list.map((item) => {
+            return {
+              ...item,
+              img: item.sourceUrl,
+              title: item.title,
+              describe: item.author,
+              date: item.publishTime,
+              id: item.id,
+              content: item.content,
+            }
+          });
+          this.list = this.list.concat(list);
           this.loading = false;
-          if (this.list.length >= 40) {
+          this.isRefresh = false;
+          this.pageData = pages(this.list, this.count);
+          if (this.IsMaxPage) {
             this.finished = true;
           }
-        }, 1000);
+          // locache.set('CenterNews' + jwt, this.list);
+        } else {
+          this.loading = false;
+          this.finished = true;
+          this.isRefresh = false;
+        }
+        this.isRequire = false;
       }
     }
   }
@@ -103,6 +129,7 @@
 
 <style scoped lang="less">
   .pageWrapper {
+    min-height: 100vh;
     .header {
       background: #3c50b2;
       height: 3.2rem;

@@ -1,8 +1,8 @@
 <template>
   <div class="pageWrapper">
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(item, key) in images" :key="key">
-        <img :src="item" class="carouselImgs" />
+      <van-swipe-item @click="handleClick(item)" v-for="(item, key) in images" :key="key">
+        <img :src="item.src" class="carouselImgs" />
       </van-swipe-item>
     </van-swipe>
     <div class="noticeBar">
@@ -18,7 +18,7 @@
     <div class="section" style="margin: .1rem 0; padding-bottom: .3rem;">
       <div class="hotServe"><span class="splitLine"></span>热门服务</div>
       <div class="hotWrapper">
-        <div class="hotServeItem" v-for="(item, key) in data" :key="key">
+        <div @click="handleClick(item)" class="hotServeItem" v-for="(item, key) in data" :key="key">
           <img :src="item.icon" class="hotServeIcon">
         </div>
       </div>
@@ -31,8 +31,8 @@
     <div class="section">
       <div class="hotServe"><span class="splitLine"></span>常见问题</div>
       <ul class="commonEssue">
-        <li v-for="(item, key) in list" :key="key">
-          <span>{{item}}</span>
+        <li v-for="(item, key) in list" :key="key" @click="ToDetail(item)">
+          <span>{{item.title}}</span>
           <van-icon name="arrow" />
         </li>
       </ul>
@@ -43,6 +43,8 @@
   import {
     Button
   } from 'vant';
+  import { WeChatCommonProblem } from "../api/wechat";
+
   export default {
     name: 'HelloWorld',
     components: {
@@ -50,6 +52,25 @@
     },
     data() {
       return {
+        busiType1: {
+          "RJZZQ":"软件著作权",
+          "ZPZZQ":"作品著作权",
+        },
+        busiType2: {
+          "ZYDK": "质押贷款",
+          "ZQDJ":"质权登记",
+          "CXZY":"撤销质押",
+        },
+        busiType3: {
+          "RJCS":"软件测试",
+          "BQJY":"版权交易",
+          "DCI_FW":"DCI服务",
+          "ZFXMSB":"政府项目申报",
+          "ZHUAN_LI":"专利",
+          "SHANG_BIAO":"商标",
+          "WQJC":"维权监测",
+          "SSCZ":"诉讼存证",
+        },
         showBorder: false,
         moreImg: require('@/assets/images/more.png'),
         copyRightImg: require('@/assets/images/copyRight.png'),
@@ -76,31 +97,101 @@
         }],
         data: [{
           text: '软件著作',
+          name: '软件著作权',
           icon: require('@/assets/images/hotImg_1.png')
         }, {
           text: '作品著作',
+          name: '作品著作权',
           icon: require('@/assets/images/hotImg_2.png')
         }, {
           text: '版权质押',
+          name: '质押贷款',
           icon: require('@/assets/images/hotImg_3.png')
         }, {
           text: '软件测试',
+          name: '软件测试',
           icon: require('@/assets/images/hotImg_4.png')
         }, {
           text: '专利',
+          name: '专利',
           icon: require('@/assets/images/hotImg_5.png')
         }, {
           text: '商标',
+          name: '商标',
           icon: require('@/assets/images/hotImg_6.png')
         }],
         images: [
-          require('@/assets/images/banner.png'),
-          require('@/assets/images/banner.png'),
-          require('@/assets/images/banner.png')
+          {
+            name: '质押贷款',
+            src: require('@/assets/images/banner.png')
+          },
+          {
+            name: '质押贷款',
+            src: require('@/assets/images/banner.png')
+          },
+          {
+            name: '质押贷款',
+            src: require('@/assets/images/banner.png')
+          }
         ]
       }
     },
+    mounted() {
+      this.GetProblem();
+    },
+    computed: {
+      busiType() {
+        return {
+          ...this.busiType1,
+          ...this.busiType2,
+          ...this.busiType3,
+        }
+      }
+    },
     methods: {
+      handleClick(item) {
+        const data = this.getbusiType(item.name) || {};
+        const type = this.getType(data.busiType);
+        this.$router.push({path: '/copyrightTypes', query: { type, ...data }});
+      },
+      getType(type) {
+        if (this.busiType1[type]) return 1;
+        if (this.busiType2[type]) return 2;
+        if (this.busiType3[type]) return 3;
+      },
+      getbusiType(name) {
+        for (var i in this.busiType) {
+          console.info(this.busiType[i], name)
+          if (this.busiType[i] === name) {
+            return {
+              busiType: i,
+              busiName: this.busiType[i],
+            };
+          }
+        }
+      },
+      async GetProblem() {
+        let HomeProblem = locache.get('HomeProblem');
+        if (HomeProblem) {
+          this.list = HomeProblem;
+        }
+        HomeProblem = await WeChatCommonProblem();
+        HomeProblem = HomeProblem.data;
+        locache.set('HomeProblem', HomeProblem);
+        console.info(HomeProblem)
+        this.list = HomeProblem;
+      },
+      ToDetail(item) {
+        const locacheGetName = ('Problem' + item.id);
+        this.$locache.set(locacheGetName, item);
+        this.$router.push({
+          path: 'detail',
+          query: {
+            id: item.id,
+            locacheGetName,
+          }
+        });
+      },
       handelEvent(type) {
         switch (type) {
           case 'register':

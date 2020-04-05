@@ -3,17 +3,20 @@
     <copyrightHead :backgroundImage="backgroundImage" color="#576b95" className="copyrightFinance"></copyrightHead>
     <div class="loginForm">
       <van-form @submit="onSubmit">
-        <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
-        <van-action-sheet v-model="show_1" :actions="actions_1" @select="onChoose" />
-        <van-action-sheet v-model="show_2" :actions="actions_2" @select="onOption" />
-        <van-field v-model="data.type" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent('kinds')" />
-        <van-field v-model="data.userPhone" placeholder="请输入您的企业名称" />
-        <van-field v-model="data.count" placeholder="请选择知识产权拥有数量" right-icon="play" readonly="" @click="handelEvent('num')" />
-        <van-field v-model="data.limit" placeholder="请选择金融需求额度" right-icon="play" readonly="" @click="handelEvent('limit')" />
-        <van-field v-model="data.password" placeholder="请输入手机号" />
+        <van-action-sheet v-model="show" :actions="actions" @select="onSelect"/>
+        <van-action-sheet v-model="show_1" :actions="actions_1" @select="onChoose"/>
+        <van-action-sheet v-model="show_2" :actions="actions_2" @select="onOption"/>
+        <van-field v-model="data.busiName" placeholder="选择服务类型" right-icon="play" readonly=""
+                   @click="handelEvent('kinds')"/>
+        <van-field v-model="data.enterpriseName" placeholder="请输入您的企业名称"/>
+        <van-field v-model="data.iprCount" placeholder="请选择知识产权拥有数量" right-icon="play" readonly=""
+                   @click="handelEvent('num')"/>
+        <van-field v-model="data.financialDemandLimit" placeholder="请选择金融需求额度" right-icon="play" readonly=""
+                   @click="handelEvent('limit')"/>
+        <van-field v-model="data.mobile" placeholder="请输入手机号"/>
       </van-form>
     </div>
-    <div class="submitBtn">提交申请</div>
+    <div @click="onSubmit" class="submitBtn">提交申请</div>
     <financeItem title='质押贷款' :data="list1" color="#2e4bd4"></financeItem>
     <financeItem title='质权登记' :data="list2" color="#2e4bd4"></financeItem>
     <financeItem title='撤销质权' :data="list3" color="#2e4bd4"></financeItem>
@@ -27,7 +30,7 @@
         <div class="decorate">==</div>
       </div>
       <div class="flowItem">
-        <img :src="flowImg" class="flowImg" />
+        <img :src="flowImg" class="flowImg"/>
       </div>
     </div>
 
@@ -39,7 +42,7 @@
         <div class="decorate">==</div>
       </div>
       <div class="handleItem">
-        <img :src="handleImg" class="handleImg" />
+        <img :src="handleImg" class="handleImg"/>
       </div>
     </div>
 
@@ -51,6 +54,9 @@
   import copyrightHead from '@/components/copyrightHead.vue'
   import coreAdvantage from '@/components/coreAdvantage.vue'
   import financeItem from '@/components/financeItem.vue'
+  import {WeChatCopyrightFinance} from "../api/wechat";
+  import {Dialog} from "vant";
+
   export default {
     components: {
       copyrightHead,
@@ -63,7 +69,16 @@
         show_1: false,
         show_2: false,
         data: {
-
+          "busiType": "",
+          "enterpriseName": "",
+          "financialDemandLimit": "",
+          "iprCount": "",
+          "mobile": "",
+        },
+        busiType: {
+          "ZYDK": "质押贷款",
+          "ZQDJ":"质权登记",
+          "CXZY":"撤销质押",
         },
         backgroundImage: require('@/assets/images/finance.png'),
         worksImg: require('@/assets/images/works.png'),
@@ -76,13 +91,13 @@
           fontSize: '.32rem',
           fontFamily: 'PingFangSC-Thin'
         },
-        actions: [{
-          name: '质押贷款'
-        }, {
-          name: '质权登记'
-        }, {
-          name: '撤销质权'
-        }],
+        // actions: [{
+        //   name: '质押贷款'
+        // }, {
+        //   name: '质权登记'
+        // }, {
+        //   name: '撤销质权'
+        // }],
         actions_1: [{
           name: '10以下'
         }, {
@@ -132,6 +147,18 @@
         }]
       }
     },
+    computed: {
+      actions() {
+        let data = [];
+        for (const i in this.busiType) {
+          data.push({
+            type: i,
+            name: this.busiType[i]
+          })
+        }
+        return data;
+      }
+    },
     methods: {
       handelEvent(type) {
         switch (type) {
@@ -150,18 +177,26 @@
       },
       onSelect(item) {
         this.show = false;
-        this.data.type = item.name;
+        this.data.busiType = item.type;
+        this.data.busiName = item.name;
       },
       onChoose(item) {
         this.show_1 = false;
-        this.data.count = item.name;
+        this.data.iprCount = item.name;
       },
       onOption(item) {
         this.show_2 = false;
-        this.data.limit = item.name;
+        this.data.financialDemandLimit = item.name;
       },
-      onSubmit() {
 
+      async onSubmit() {
+        const datas = {...this.data};
+        const { data } = await WeChatCopyrightFinance(datas) || {};
+        if (data) {
+          Dialog({ message: '申请成功' });
+        } else {
+          Dialog({ message: '申请失败' });
+        }
       }
     }
   }
@@ -171,7 +206,8 @@
   .pageWrapper {
     min-height: 100vh;
     background: #0049D2;
-	  line-height: .4rem;
+    line-height: .4rem;
+
     .concatPhone {
       font-family: PingFangSC-Semibold;
       font-size: 0.56rem;

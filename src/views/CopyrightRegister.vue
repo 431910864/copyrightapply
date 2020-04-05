@@ -4,12 +4,12 @@
     <div class="loginForm">
       <van-form @submit="onSubmit">
         <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
-        <van-field v-model="data.type" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent" />
-        <van-field v-model="data.userPhone" placeholder="请输入您的企业名称或姓名" />
-        <van-field v-model="data.password" placeholder="请输入手机号" />
+        <van-field v-model="data.busiName" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent" />
+        <van-field v-model="data.enterpriseName" placeholder="请输入您的企业名称或姓名" />
+        <van-field v-model="data.mobile" placeholder="请输入手机号" />
       </van-form>
     </div>
-    <div class="submitBtn">提交申请</div>
+    <div @click="onSubmit" class="submitBtn">提交申请</div>
 
     <div class="advantageSection">
       <div style="width: 4rem; margin: 0 auto;">
@@ -85,6 +85,8 @@
 
 <script>
   import copyrightHead from '@/components/copyrightHead.vue'
+  import {WeChatCopyrightFinance} from "../api/wechat";
+  import {Dialog} from "vant";
   export default {
     components: {
       copyrightHead
@@ -92,7 +94,11 @@
     data() {
       return {
         data: {
-
+          "busiType": "",
+          "enterpriseName": "",
+          "financialDemandLimit": "",
+          "iprCount": "",
+          "mobile": "",
         },
         styleObj: {
           margin: 0,
@@ -105,11 +111,10 @@
         flowImg: require('@/assets/images/flow_1.png'),
         handleImg: require('@/assets/images/handleDate_1.png'),
         show: false,
-        actions: [{
-          name: '软件著作权'
-        }, {
-          name: '作品著作权'
-        }],
+        busiType: {
+          "RJZZQ":"软件著作权",
+          "ZPZZQ":"作品著作权",
+        },
         softCopyRightList: ['基础登记', '转让登记', '合同登记', '变更登记', '查询', '调档查询', '撤回'],
         advantageList: [{
           title: '项目申报',
@@ -126,16 +131,35 @@
         }]
       }
     },
+    computed: {
+      actions() {
+        let data = [];
+        for (const i in this.busiType) {
+          data.push({
+            type: i,
+            name: this.busiType[i]
+          })
+        }
+        return data;
+      }
+    },
     methods: {
       handelEvent() {
         this.show = true;
       },
       onSelect(item) {
         this.show = false;
-        this.data.type = item.name;
+        this.data.busiType = item.type;
+        this.data.busiName = item.name;
       },
-      onSubmit() {
-
+      async onSubmit() {
+        const datas = {...this.data};
+        const { data } = await WeChatCopyrightFinance(datas) || {};
+        if (data) {
+          Dialog({ message: '申请成功' });
+        } else {
+          Dialog({ message: '申请失败' });
+        }
       }
     }
   }
