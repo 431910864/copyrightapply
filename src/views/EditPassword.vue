@@ -3,9 +3,9 @@
     <header class="header" />
     <div class="loginForm">
       <van-form @submit="onSubmit">
-        <van-field v-model="data.oldPwd" placeholder="密码" />
-        <van-field v-model="data.newPwd" placeholder="新密码" />
-        <van-field v-model="data.twoPwd" placeholder="再次输入密码" />
+        <van-field type="password" v-model="data.oldPwd" placeholder="密码" />
+        <van-field type="password" v-model="data.newPwd" placeholder="新密码" />
+        <van-field type="password" v-model="data.twoPwd" placeholder="再次输入密码" />
       </van-form>
     </div>
     <div @click="onSubmit" class="submitBtn">确认修改</div>

@@ -11,7 +11,7 @@
         <van-cell v-for="(vo, index) in list" :key="index" @click="handleEvent(vo, index)">
           <div class="unit">
             <div class="contentDes">
-              <div class="title">{{vo.title}}</div>
+              <div class="title name">{{vo.title}}</div>
               <div class="describe">{{vo.describe}}</div>
               <div class="date">{{vo.date}}</div>
             </div>
@@ -62,11 +62,6 @@
         })
       },
       loadInit() {
-        // const { jwt } = locache.get('jwt') || {};
-        // const list = locache.get('CenterNews' + jwt);
-        // if (list) {
-        //   this.list = list;
-        // }
       },
       onRefresh() {
         this.list = [];
@@ -83,7 +78,6 @@
         }
       },
       async onLoad() {
-        const { jwt } = locache.get('jwt') || {};
         if (this.IsMaxPage || this.isRequire) {
           return;
         }
@@ -115,7 +109,6 @@
           if (this.IsMaxPage) {
             this.finished = true;
           }
-          // locache.set('CenterNews' + jwt, this.list);
         } else {
           this.loading = false;
           this.finished = true;
@@ -199,6 +192,15 @@
           }
         }
       }
+    }
+    .name {
+      overflow : hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      word-break: break-all;
     }
   }
 </style>

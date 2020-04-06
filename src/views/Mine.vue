@@ -59,12 +59,12 @@
             route: '/centerIntroduction',
           },
           {
-            icon: require('@/assets/images/settings.png'),
+            icon: require('@/assets/images/message.png'),
             label: '中心资讯',
             route: '/centerNews',
           },
           {
-            icon: require('@/assets/images/settings.png'),
+            icon: require('@/assets/images/message.png'),
             label: '知识政策',
             route: '/indexList',
           },
@@ -90,13 +90,16 @@
         UserInfo: state => {
           return state.UserInfo;
         },
+        Token: state => {
+          return state.Token;
+        }
       }),
       GetUserInfo() {
         return this.UserInfo || {};
       },
       lists() {
         return this.list1.filter((item) => {
-          if (item.isUserInfo && (locache.get('userInfo') || locache.get('jwt'))) {
+          if (!this.Token && item.isUserInfo) {
             return false;
           }
           return true;
@@ -105,8 +108,7 @@
     },
     mounted() {
       setTimeout(() => {
-        this.jwt = locache.get('jwt');
-        this.loginStatus = Number(!!locache.get('jwt'));
+        this.loginStatus = Number(!!this.Token);
       }, 200);
     },
     methods: {
@@ -117,7 +119,12 @@
 
       },
       toLogin() {
-        this.$router.push(!this.GetUserInfo.openid ? '/login' : '/setting')
+        this.loginStatus = !!this.Token;
+        if (!this.loginStatus) {
+          this.$router.push('/login')
+        } else {
+          this.$router.push('/setting')
+        }
       }
     }
   }

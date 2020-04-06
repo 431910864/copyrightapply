@@ -120,6 +120,7 @@
       } else {
         this.dataModule = this.data[2]
       }
+      document.title = busiName;
     },
     methods: {
 

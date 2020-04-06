@@ -51,11 +51,6 @@
     },
     methods: {
       loadInit() {
-        // const { jwt } = locache.get('jwt') || {};
-        // const list = locache.get('MyService' + jwt);
-        // if (list) {
-        //   this.list = list;
-        // }
       },
       onRefresh() {
         this.list = [];
@@ -72,7 +67,6 @@
         }
       },
       async onLoad() {
-        const { jwt } = locache.get('jwt') || {};
         if (this.IsMaxPage || this.isRequire) {
           return;
         }

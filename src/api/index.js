@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from "../store";
 
 axios.defaults.baseURL = 'https://kukumber.utools.club/noa/api/';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -11,9 +12,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  const { jwt } = locache.get('userInfo') || locache.get('jwt') || {};
-  if (jwt) {
-    config.headers['Authorization'] = 'Bearer ' + jwt;
+  const token = store.state.Token;
+  if (token) {
+    config.headers['Authorization'] = 'Bearer ' + token;
   }
   return config;
 }, function (error) {

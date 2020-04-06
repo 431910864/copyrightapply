@@ -76,16 +76,28 @@ WxMethods.prototype = {
     const openid = this.GetStorage("openid");
     if (openid) {
       const lData = locache.get('userInfo') || {};
+      let oldToken = locache.get('token');
+      let newToken = oldToken;
       if (lData && lData.errmsg) {
         Dialog({ message: lData.errmsg });
         locache.remove('userInfo');
       } else {
+        if (lData && lData.jwt && !oldToken) {
+          oldToken = lData.jwt;
+        }
+        store.commit('SetToken', oldToken);
+        locache.set('token', oldToken);
         store.commit('SetUserInfo', {
           ...lData,
         });
       }
       const data = await WeChatOfficialWebAuthGetWxUserInfo(openid);
       const dispatchData = data || lData || {};
+      if (dispatchData && dispatchData.jwt && !newToken) {
+        newToken = dispatchData.jwt;
+      }
+      store.commit('SetToken', newToken);
+      locache.set('token', newToken);
       store.commit('SetUserInfo', {
         ...dispatchData,
       });

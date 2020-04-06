@@ -11,8 +11,8 @@
         <van-field v-model="data.username" placeholder="用户名" />
         <van-field v-model="data.realName" placeholder="姓名或企业名称" />
         <van-field v-model="data.mobile" placeholder="手机号" />
-        <van-field v-model="data.password" placeholder="密码" />
-        <van-field v-model="data.dPassword" placeholder="再次输入密码" />
+        <van-field type="password" v-model="data.password" placeholder="密码" />
+        <van-field type="password" v-model="data.dPassword" placeholder="再次输入密码" />
         <div style="display: flex;flex-direction: row;height: 0.86rem;margin: 0 auto 0.3rem auto;width: 6.48rem;">
           <van-field maxlength="4" style="margin-bottom: 0;flex: 1;border-radius: 4px 0 0 4px;border-right: 0;" v-model="code" placeholder="验证码" />
           <vue-img-verify style="border-radius: 0 4px 4px 0;overflow: hidden;" @getImgCode="getImgCode" ref="vueImgVerify" />
@@ -20,6 +20,7 @@
       </van-form>
     </div>
     <div class="submitBtn" @click="onSubmit">注册</div>
+    <div style="height: 100px;"></div>
   </div>
 </template>
 <script>
@@ -71,8 +72,13 @@
           delete data.code;
           const user = await WeChatUser(data);
           const jwt = user.data;
-          locache.set('jwt', jwt);
-          this.$router.replace('mine');
+          if (jwt && jwt.jwt) {
+            this.$store.commit('SetToken', jwt.jwt);
+            locache.set('token', jwt.jwt);
+            this.$router.replace('mine');
+          } else {
+            Dialog({ message: '登陆失败' });
+          }
         } else {
           Dialog({ message: '两次密码输入的不一致' });
         }

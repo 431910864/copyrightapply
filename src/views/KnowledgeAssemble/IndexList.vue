@@ -12,8 +12,8 @@
                 <img :src="vo.img" />
               </div>
               <div class="contentDes">
-                <div class="title">{{vo.title}}</div>
-                <div class="contentType">{{vo.type}}</div>
+                <div class="title name">{{vo.title}}</div>
+<!--                <div class="contentType">{{vo.type}}</div>-->
                 <div class="describe">{{vo.describe}}</div>
                 <div class="date">{{vo.date}}</div>
               </div>
@@ -59,6 +59,7 @@
           isRefresh: false,  //是否在刷新
         }],
         active: '0',
+        $this: {},
       }
     },
     computed: {
@@ -92,9 +93,6 @@
       isRefresh() {
         return this.types[this.active].isRefresh;
       },  //是否在刷新
-      IsMaxPage() {
-        return this.pageData.maxPage && this.page >= this.pageData.maxPage; // typeof this.count === 'number' && this.list.length >= this.count;
-      }
     },
     mounted() {
       this.loadInit();
@@ -112,11 +110,6 @@
         })
       },
       loadInit() {
-        // const { jwt } = locache.get('jwt') || {};
-        // const list = locache.get('indexList' + jwt);
-        // if (list) {
-        //   this.list = list;
-        // }
       },
       onRefresh() {
         this.list = [];
@@ -132,10 +125,13 @@
           }, 0)
         }
       },
+      IsMaxPage($this) {
+        return $this.pageData && $this.pageData.maxPage && $this.page >= $this.pageData.maxPage; // typeof this.count === 'number' && this.list.length >= this.count;
+      },
       async onLoad() {
-        const {jwt} = locache.get('jwt') || {};
         const $this = this.types[this.active];
-        if (this.IsMaxPage || $this.isRequire) {
+        this.$this = $this;
+        if (this.IsMaxPage($this) || $this.isRequire) {
           return;
         }
         if (!$this.pageData.maxPage || $this.page < $this.pageData.maxPage) {
@@ -162,17 +158,16 @@
               date: item.publishTime,
               id: item.id,
               content: item.content,
-              type: 0,
+              // type: 0,
             }
           });
           $this.list = $this.list.concat(list);
           $this.loading = false;
           $this.isRefresh = false;
           $this.pageData = pages($this.list, $this.count);
-          if ($this.IsMaxPage) {
+          if (this.IsMaxPage($this)) {
             $this.finished = true;
           }
-          // locache.set('indexList' + jwt, this.list);
         } else {
           $this.loading = false;
           $this.finished = true;
@@ -251,6 +246,15 @@
           }
         }
       }
+    }
+    .name {
+      overflow : hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      word-break: break-all;
     }
   }
 </style>

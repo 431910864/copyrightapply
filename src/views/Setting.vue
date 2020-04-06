@@ -17,6 +17,7 @@
   import {
     Button
   } from 'vant';
+  import {mapState} from "vuex";
   export default {
     name: 'HelloWorld',
     components: {
@@ -25,9 +26,8 @@
     data() {
       return {
         data: {
-          nickName: 'zhangsan',
-          phone: '131****463',
-          jwt: locache.get('jwt'),
+          nickName: '',
+          phone: '',
         },
         moreImg: require('@/assets/images/portrait.jpg'),
         list1: [
@@ -41,7 +41,8 @@
             icon: require('@/assets/images/settings.png'),
             label: '退出登陆',
             route: ($this) => {
-              locache.remove('jwt');
+              locache.remove('token');
+              $this.$store.commit('SetToken', undefined);
               $this.$router.replace('mine');
             },
           },
@@ -53,11 +54,19 @@
       }
     },
     computed: {
+      ...mapState({
+        UserInfo: state => {
+          return state.UserInfo;
+        },
+        Token: state => {
+          return state.Token;
+        }
+      }),
       lists() {
         return this.list1.filter((item) => {
-          if (item.isUserInfo && locache.get('userInfo')) {
-            return false;
-          }
+          // if (item.isUserInfo && locache.get('userInfo')) {
+          //   return false;
+          // }
           return true;
         })
       }
@@ -74,7 +83,7 @@
 
       },
       toLogin() {
-        !this.jwt && this.$router.push('/login')
+        !this.Token && this.$router.push('/login')
       }
     }
   }

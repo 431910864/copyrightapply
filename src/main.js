@@ -9,11 +9,10 @@ import api from './api'
 import locache from './assets/js/locache';
 
 router.beforeEach((to, from, next) => {
-  const { jwt } = locache.get('userInfo') || locache.get('jwt') || {};
-  const openId = locache.get('openid');
-  const isTokenPage = ['/copyrightRegister', '/copyrightFinance', '/copyrightService', '/copyrightTypes', '/editPassword', '/MyService'].map((item) => item.toLowerCase());
-  if (!jwt && isTokenPage.includes(to.path.toLowerCase())) {
-    next(openId ? '/register' : '/login');
+  const token = store.state.Token;
+  const isTokenPage = ['/editPassword', '/MyService'].map((item) => item.toLowerCase());
+  if (!token && isTokenPage.includes(to.path.toLowerCase())) {
+    next('/login');
     return;
   }
   next();
