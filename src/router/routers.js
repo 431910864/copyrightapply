@@ -18,6 +18,7 @@ const CopyrightName = () => import('@/views/CopyrightName');
 const HandlingStatus = () => import('@/views/HandlingStatus');
 const MyService = () => import('@/views/MyService');
 const Setting = () => import('@/views/Setting');
+const ContactUS = () => import('@/views/ContactUS');
 
 export default [{
     path: '/',
@@ -169,6 +170,14 @@ export default [{
       title: '设置'
     },
     component: Setting
+  },
+  {
+    path: '/contactUS',
+    name: '联系我们',
+    meta: {
+      title: '联系我们'
+    },
+    component: ContactUS
   },
   {
     path: '/notFund',

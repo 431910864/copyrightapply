@@ -152,10 +152,16 @@ export const WeChatCentralInfo = async (page) => {
     page,
   })
 };
-
 export const WeChatCentralInfoGetID = async (id) => {
   return await get(`/wechat/CentralInfo/${id}`, {
     id,
+  })
+};
+
+export const WeChatSalesman = async (page) => {
+  return await get('/wechat/salesman', {
+    limit,
+    page,
   })
 };
 //

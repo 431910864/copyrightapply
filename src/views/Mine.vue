@@ -19,6 +19,7 @@
         </li>
       </ul>
     </div>
+    <div style="height: 2rem;"></div>
   </div>
 </template>
 <script>
@@ -67,6 +68,11 @@
             icon: require('@/assets/images/message.png'),
             label: '知识政策',
             route: '/indexList',
+          },
+          {
+            icon: require('@/assets/images/help.png'),
+            label: '联系我们',
+            route: '/contactUS',
           },
           // {
           //   icon: require('@/assets/images/help.png'),
