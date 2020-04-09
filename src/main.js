@@ -10,7 +10,7 @@ import locache from './assets/js/locache';
 
 router.beforeEach((to, from, next) => {
   const token = store.state.Token;
-  const isTokenPage = ['/editPassword', '/MyService'].map((item) => item.toLowerCase());
+  const isTokenPage = ['/editPassword', '/MyService', '/mine'].map((item) => item.toLowerCase());
   if (!token && isTokenPage.includes(to.path.toLowerCase())) {
     next('/login');
     return;

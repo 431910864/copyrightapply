@@ -1,6 +1,6 @@
 <template>
   <div class="pageWrapper">
-    <van-pull-refresh class="pageWrapper" v-model="isRefresh" @refresh="onRefresh">
+    <div class="pageWrapper" style="overflow:hidden;" v-model="isRefresh" @refresh="onRefresh">
       <van-list class="contentList" v-model="loading" :finished="finished" finished-text="没有更多了" @load="init">
         <van-cell style="margin: .3rem;width: auto;border-radius: .08rem;" v-for="(vo, index) in list" :key="index">
           <div class="unit">
@@ -19,7 +19,7 @@
           <div style="height: .1rem;"></div>
         </van-cell>
       </van-list>
-    </van-pull-refresh>
+    </div>
   </div>
 </template>
 
