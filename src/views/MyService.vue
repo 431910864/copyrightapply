@@ -4,12 +4,13 @@
       <van-list :offset="200" class="contentList" v-model="loading" :finished="finished" finished-text="没有更多了" @load="init">
         <van-cell class="cellMarginBottom"
                   v-for="(item, index) in list"
+                  @click="toServiceDetail(item)"
                   :key="index"
                   :title-class="cellTitleStyle"
                   :label-class="cellLabelStyle"
                   :value-class="cellValueStyle"
                   :title="item.copyrightName"
-                  :value="urgentType[item.urgentType]"
+                  :value="GetStatus(item.status)"
                   :label="item.urgentDays"
                   center>
         </van-cell>
@@ -28,7 +29,7 @@
         cellTitleStyle: 'cellTitleStyle',
         cellValueStyle: 'cellValueStyle',
         cellLabelStyle: 'cellLabelStyle',
-        urgentType: { 'YES': '已登记', 'NO': '未登记' },
+        urgentType: { 'YES': '是', 'NO': '否' },
         list: [],
         loading: false,
         finished: false,
@@ -51,6 +52,19 @@
     },
     methods: {
       loadInit() {
+      },
+      GetStatus(item) {
+        const Status = this.$store.state.Status;
+        return Status[item];
+      },
+      toServiceDetail(item) {
+        locache.set('CopyrightName', item);
+        this.$router.push({
+          path: '/CopyrightName',
+          query: {
+            id: item.id,
+          },
+        });
       },
       onRefresh() {
         this.list = [];

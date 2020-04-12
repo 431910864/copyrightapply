@@ -66,7 +66,15 @@
           const jwt = user.data;
           if (jwt && jwt.jwt) {
             this.$store.commit('SetToken', jwt.jwt);
+            this.$store.commit('SetUser', {
+              mobile: jwt.mobile,
+              realName: jwt.realName,
+            });
             locache.set('token', jwt.jwt);
+            locache.set('user', {
+              mobile: jwt.mobile,
+              realName: jwt.realName,
+            });
             this.$router.replace('mine');
           } else {
             Dialog({ message: '登陆失败' });

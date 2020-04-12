@@ -4,7 +4,9 @@
       <div @click="toLogin" class="content">
         <img class="portrait" :src="GetUserInfo.headimgurl || moreImg"/>
         <div class="baseInfo">
-          <div class="nickName">{{GetUserInfo.openid ? GetUserInfo.nickname : status[loginStatus]}}</div>
+<!--          <div class="nickName">{{GetUserInfo.openid ? GetUserInfo.nickname : status[loginStatus]}}</div>-->
+          <div class="nickName">{{User.realName}}</div>
+          <div class="" style="margin-top: .04rem;">{{User.mobile}}</div>
         </div>
       </div>
     </header>
@@ -98,6 +100,9 @@
         },
         Token: state => {
           return state.Token;
+        },
+        User: state => {
+          return state.User;
         }
       }),
       GetUserInfo() {

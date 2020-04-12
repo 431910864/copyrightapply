@@ -76,6 +76,7 @@ WxMethods.prototype = {
     const openid = this.GetStorage("openid");
     if (openid) {
       const lData = locache.get('userInfo') || {};
+      const user = locache.get('user') || {};
       let oldToken = locache.get('token');
       let newToken = oldToken;
       if (lData && lData.errmsg) {
@@ -90,6 +91,9 @@ WxMethods.prototype = {
         store.commit('SetUserInfo', {
           ...lData,
         });
+      }
+      if (user && oldToken) {
+        store.commit('SetUser', user);
       }
       const data = await WeChatOfficialWebAuthGetWxUserInfo(openid);
       const dispatchData = data || lData || {};
