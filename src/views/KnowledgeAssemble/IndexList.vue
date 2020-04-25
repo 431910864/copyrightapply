@@ -27,7 +27,7 @@
                 <div>
                   <div>{{vo.fileName}}</div>
                 </div>
-                <a href="vo.fileUrl">下载</a>
+                <div @click="down(vo.fileUrl)" :href="vo.fileUrl">下载</div>
               </div>
             </van-cell>
           </div>
@@ -123,6 +123,9 @@
       this.loadInit();
     },
     methods: {
+      down(href) {
+        window.open(href);
+      },
       handleEvent(item, key) {
         const locacheGetName = ('indexList' + this.active + '-' + item.id);
         this.$locache.set(locacheGetName, item);

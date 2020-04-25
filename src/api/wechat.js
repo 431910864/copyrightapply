@@ -1,7 +1,7 @@
 import axios from './index';
 import { Dialog, Toast } from "vant";
 
-export const limit = 10;
+export const limit = 20;
 export const getPage = (list) => {
   try {
     const len = typeof list === 'number' ? list : list.length;
@@ -147,7 +147,7 @@ export const WeChatToken = async (data) => {
 // 微信公众号-中心资讯
 // Wechat Central Info Controller
 export const WeChatCentralInfo = async (page) => {
-  return await get('/wechat/CentralInfo', {
+  return await get(`/wechat/CentralInfo?limit=${limit}&page=${page}`, {
     limit,
     page,
   })
@@ -159,7 +159,7 @@ export const WeChatCentralInfoGetID = async (id) => {
 };
 
 export const WeChatSalesman = async (page) => {
-  return await get('/wechat/salesman', {
+  return await get(`/wechat/salesman?limit=${limit}&page=${page}`, {
     limit,
     page,
   })
@@ -168,9 +168,9 @@ export const WeChatSalesman = async (page) => {
 // 微信公众号-常见问题
 // Wechat Common Problem Controller
 //
-export const WeChatCommonProblem = async (id) => {
-  return await get(`/wechat/CommonProblem`, {
-    totalElements: 10,
+export const WeChatCommonProblem = async (page = 1) => {
+  return await get(`/wechat/CommonProblem?limit=${limit}&page=${page}`, {
+    totalElements: limit,
     totalPages: 1,
   })
 };
@@ -188,7 +188,7 @@ export const WeChatCommonProblemGetID = async (id) => {
 //
 
 export const WeChatHotKnowledge = async (page) => {
-  return await get(`/wechat/HotKnowledge`, {
+  return await get(`/wechat/HotKnowledge?limit=${limit}&page=${page}`, {
     totalElements: limit,
     totalPages: page,
   })
@@ -202,7 +202,7 @@ export const WeChatHotKnowledgeGetID = async (id) => {
 // Webchat Copyright Finance Controller
 // 查询提交申请
 export const WeChatGetCopyrightFinance = async (page) => {
-  return await get(`/wechat/CopyrightFinance`, {
+  return await get(`/wechat/CopyrightFinance?limit=${limit}&page=${page}`, {
     limit,
     page,
   })
@@ -252,7 +252,7 @@ export const WeChatUserPwd = async (data) => {
 // Wechat Ipr Policy Controller
 //
 export const WeChatIprPolicy = async (page) => {
-  return await get(`/wechat/IprPolicy?totalElements=${limit}&totalPages=${page}`, {
+  return await get(`/wechat/IprPolicy?limit=${limit}&page=${page}`, {
     totalElements: limit,
     totalPages: page,
   })
@@ -293,7 +293,7 @@ export const WeChatOfficialWebAuthGetWxUserInfo = async (openId) => {
 //
 
 export const WeChatTemplateFile = async (page) => {
-  return await get('TemplateFile', {
+  return await get(`TemplateFile?limit=${limit}&page=${page}`, {
     limit,
     page,
   })

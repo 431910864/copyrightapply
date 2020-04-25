@@ -1,6 +1,6 @@
 <template>
   <div class="pageWrapper">
-    <copyrightHead className="copyrightRegister"></copyrightHead>
+    <copyrightHead iconName="phoneIcon3" color="#e53406" className="copyrightRegister"></copyrightHead>
     <div class="loginForm">
       <van-form @submit="onSubmit">
         <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />

@@ -31,8 +31,8 @@
     <div class="section">
       <div class="hotServe"><span class="splitLine"></span>常见问题</div>
       <ul class="commonEssue">
-        <li v-for="(item, key) in list" :key="key" @click="ToDetail(item)">
-          <span>{{item.title}}</span>
+        <li v-for="(item, key) in list" style="text-align: left;" :key="key" @click="ToDetail(item)">
+          <span style="white-space: nowrap;text-overflow:ellipsis;overflow: hidden;padding-right: 20px;">{{item.title}}</span>
           <van-icon name="arrow" />
         </li>
       </ul>

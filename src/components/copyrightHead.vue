@@ -9,13 +9,17 @@
       </div> -->
     </div>
 
-    <div class="searchWrapper">
-      <div style="width: 4.4rem; margin: 0 auto;">
-        <van-divider slot :style="{margin: 0, color: color, borderColor: color, fontSize: '.24rem', fontFamily:'PingFangSC-Thin'}">
-          · 登记前 先查询 提高成功率 ·
-        </van-divider>
+    <div class="searchWrapper" style="display: flex;align-items: center;justify-content: center;background:#ffffff;box-shadow:0 2px 8px 0 rgba(0,0,0,0.15);border-radius:4px;min-height:96px;">
+      <div style="font-size:28px;letter-spacing:0;text-align:center;display: flex;align-items: center;justify-content: center;">
+        <div><img style="width:28px;height:28px;" :src="getIcon" /></div>
+        <div style="padding-left: 10px;height:32px;display: flex;align-items: center;line-height: 32px;padding-top: 4px;" :style="{color: color}">0755-86952852</div>
       </div>
-      <van-search v-model:value="value" @search="onInput" placeholder="请输入需要登记的版权信息" :class="className" />
+<!--      <div style="width: 4.4rem; margin: 0 auto;">-->
+<!--        <van-divider slot :style="{margin: 0, color: color, borderColor: color, fontSize: '.24rem', fontFamily:'PingFangSC-Thin'}">-->
+<!--          · 登记前 先查询 提高成功率 ·-->
+<!--        </van-divider>-->
+<!--      </div>-->
+<!--      <van-search v-model:value="value" @search="onInput" placeholder="请输入需要登记的版权信息" :class="className" />-->
     </div>
   </div>
 </template>
@@ -41,12 +45,28 @@
       backgroundImage: {
         type: String,
         default: require('@/assets/images/register.png')
+      },
+      iconName: {
+        type: String,
+        default: 'phoneIcon0',
       }
     },
     data() {
       return {
         borderImg: require('@/assets/images/border.png'),
+        iconList: {
+          phoneIcon0: require('@/assets/images/phone_icon0.png'),
+          phoneIcon1: require('@/assets/images/phone_icon1.png'),
+          phoneIcon2: require('@/assets/images/phone_icon2.png'),
+          phoneIcon3: require('@/assets/images/phone_icon3.png'),
+          phoneIcon4: require('@/assets/images/phone_icon4.png'),
+        },
         value: '',
+      }
+    },
+    computed: {
+      getIcon() {
+        return this.iconList[this.iconName];
       }
     },
     methods: {
