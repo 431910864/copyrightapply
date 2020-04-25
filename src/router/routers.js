@@ -21,6 +21,7 @@ const Setting = () => import('@/views/Setting');
 const ContactUS = () => import('@/views/ContactUS');
 const CopyrightMaoyi = () => import('@/views/CopyrightMaoyi');
 const CopyrightWeiquan = () => import('@/views/CopyrightWeiquan');
+const BusinessCooperation = () => import('@/views/BusinessCooperation');
 
 export default [{
     path: '/',
@@ -196,6 +197,14 @@ export default [{
       title: '联系我们'
     },
     component: ContactUS
+  },
+  {
+    path: '/businessCooperation',
+    name: '商务合作',
+    meta: {
+      title: '商务合作'
+    },
+    component: BusinessCooperation
   },
   {
     path: '/notFund',

@@ -78,6 +78,11 @@
           },
           {
             icon: require('@/assets/images/help.png'),
+            label: 'BusinessCooperation',
+            route: '/BusinessCooperation',
+          },
+          {
+            icon: require('@/assets/images/help.png'),
             label: '帮助中心'
           },
           {
