@@ -252,7 +252,7 @@ export const WeChatUserPwd = async (data) => {
 // Wechat Ipr Policy Controller
 //
 export const WeChatIprPolicy = async (page) => {
-  return await get(`/wechat/IprPolicy`, {
+  return await get(`/wechat/IprPolicy?totalElements=${limit}&totalPages=${page}`, {
     totalElements: limit,
     totalPages: page,
   })
@@ -288,4 +288,13 @@ export const WeChatOfficialWebAuthGetWxUserInfo = async (openId) => {
     return null;
   }
   return userInfo;
+};
+
+//
+
+export const WeChatTemplateFile = async (page) => {
+  return await get('TemplateFile', {
+    limit,
+    page,
+  })
 };

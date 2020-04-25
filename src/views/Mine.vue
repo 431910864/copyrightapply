@@ -52,34 +52,34 @@
             label: '我的服务',
             route: '/MyService'
           },
-          // {
-          //   icon: require('@/assets/images/message.png'),
-          //   label: '消息通知'
-          // },
-          // {
-          //   icon: require('@/assets/images/help.png'),
-          //   label: '中心简介',
-          //   route: '/centerIntroduction',
-          // },
-          // {
-          //   icon: require('@/assets/images/message.png'),
-          //   label: '中心资讯',
-          //   route: '/centerNews',
-          // },
-          // {
-          //   icon: require('@/assets/images/message.png'),
-          //   label: '知识政策',
-          //   route: '/indexList',
-          // },
-          // {
-          //   icon: require('@/assets/images/help.png'),
-          //   label: '联系我们',
-          //   route: '/contactUS',
-          // },
-          // {
-          //   icon: require('@/assets/images/help.png'),
-          //   label: '帮助中心'
-          // },
+          {
+            icon: require('@/assets/images/message.png'),
+            label: '消息通知'
+          },
+          {
+            icon: require('@/assets/images/help.png'),
+            label: '中心简介',
+            route: '/centerIntroduction',
+          },
+          {
+            icon: require('@/assets/images/message.png'),
+            label: '中心资讯',
+            route: '/centerNews',
+          },
+          {
+            icon: require('@/assets/images/message.png'),
+            label: '知识政策',
+            route: '/indexList',
+          },
+          {
+            icon: require('@/assets/images/help.png'),
+            label: '联系我们',
+            route: '/contactUS',
+          },
+          {
+            icon: require('@/assets/images/help.png'),
+            label: '帮助中心'
+          },
           {
             icon: require('@/assets/images/settings.png'),
             label: '设置',

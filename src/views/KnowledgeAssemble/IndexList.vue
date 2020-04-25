@@ -6,19 +6,31 @@
     <van-tabs v-model="active" sticky title-active-color="#2e4bd4">
       <van-tab v-for="(item, key) in types" :title="item.label" :key="key">
         <van-list class="contentList" v-model="item.loading" :finished="item.finished" finished-text="没有更多了" @load="onLoad">
-          <van-cell v-for="(vo, index) in item.list" :key="index" @click="handleEvent(vo, index)">
-            <div class="unit">
-              <div class="images">
-                <img :src="vo.img" />
+          <div v-if="item.type !== '2'">
+            <van-cell v-for="(vo, index) in item.list" :key="index" @click="handleEvent(vo, index)">
+              <div class="unit">
+                <div class="images">
+                  <img :src="vo.img" />
+                </div>
+                <div class="contentDes">
+                  <div class="title name">{{vo.title}}</div>
+                  <!--                <div class="contentType">{{vo.type}}</div>-->
+                  <div class="describe">{{vo.describe}}</div>
+                  <div class="date">{{vo.date}}</div>
+                </div>
               </div>
-              <div class="contentDes">
-                <div class="title name">{{vo.title}}</div>
-<!--                <div class="contentType">{{vo.type}}</div>-->
-                <div class="describe">{{vo.describe}}</div>
-                <div class="date">{{vo.date}}</div>
+            </van-cell>
+          </div>
+          <div v-else>
+            <van-cell v-for="(vo, index) in item.list" :key="index" @click="handleEvent(vo, index)">
+              <div style="display: flex;align-items: center;justify-content: space-between;padding-top: 5px;padding-bottom: 5px;">
+                <div>
+                  <div>{{vo.fileName}}</div>
+                </div>
+                <a href="vo.fileUrl">下载</a>
               </div>
-            </div>
-          </van-cell>
+            </van-cell>
+          </div>
         </van-list>
       </van-tab>
     </van-tabs>
@@ -26,7 +38,7 @@
 </template>
 
 <script>
-  import {pages, WeChatCentralInfo, WeChatHotKnowledge, WeChatIprPolicy} from "../../api/wechat";
+  import {pages, WeChatCentralInfo, WeChatHotKnowledge, WeChatIprPolicy,WeChatTemplateFile} from "../../api/wechat";
   export default {
     data() {
       return {
@@ -47,6 +59,19 @@
         }, {
           type: '1',
           label: '知产政策',
+          list: [],
+          loading: false,
+          finished: false,
+          searchKey: '',
+          data: [],
+          count: null,
+          page: 0,
+          pageData: {},
+          timer: null,
+          isRefresh: false,  //是否在刷新
+        }, {
+          type: '2',
+          label: '模版下载',
           list: [],
           loading: false,
           finished: false,
@@ -143,6 +168,8 @@
         let data;
         if (this.active === 0) {
           data = await WeChatHotKnowledge($this.page);
+        } else if (this.active === 2) {
+          data = await WeChatTemplateFile($this.page);
         } else {
           data = await WeChatIprPolicy($this.page);
         }
