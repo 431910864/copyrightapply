@@ -70,9 +70,11 @@
           handleDateIcon: require('@/assets/images/handleDate_3.png'),
           actions: [{
             name: '软件测试'
-          }, {
-            name: '版权交易'
-          }, {
+          },
+          //   {
+          //   name: '版权交易'
+          // },
+            {
             name: 'DCI服务'
           }, {
             name: '政府项目申报'
@@ -80,20 +82,22 @@
             name: '专利'
           }, {
             name: '商标'
-          }, {
-            name: '维权监测'
-          }, {
-            name: '诉讼存证'
-          }],
+          },
+          //   {
+          //   name: '维权监测'
+          // }, {
+          //   name: '诉讼存证'
+          // }
+          ],
           busiType: {
             "RJCS":"软件测试",
-            "BQJY":"版权交易",
+            // "BQJY":"版权交易",
             "DCI_FW":"DCI服务",
             "ZFXMSB":"政府项目申报",
             "ZHUAN_LI":"专利",
             "SHANG_BIAO":"商标",
-            "WQJC":"维权监测",
-            "SSCZ":"诉讼存证",
+            // "WQJC":"维权监测",
+            // "SSCZ":"诉讼存证",
           },
           list: [
             '1、软件的源程序及文档；',

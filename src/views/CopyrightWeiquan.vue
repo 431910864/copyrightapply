@@ -1,10 +1,9 @@
 <template>
   <div class="pageWrapper">
-    <copyrightHead iconName="phoneIcon3" color="#e53406" className="copyrightRegister"></copyrightHead>
+    <copyrightHead :backgroundImage="require('@/assets/images/banner_lv.png')" iconName="phoneIcon_lv" color="#40b97a" className="copyrightRegister"></copyrightHead>
     <div class="loginForm">
       <van-form @submit="onSubmit">
-        <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
-        <van-field v-model="data.busiName" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent" />
+        <van-field v-model="data.busiName" placeholder="选择服务类型" disabled readonly />
         <van-field v-model="data.enterpriseName" placeholder="请输入您的企业名称或姓名" />
         <van-field v-model="data.mobile" placeholder="请输入手机号" />
       </van-form>
@@ -14,57 +13,70 @@
     <div class="advantageSection">
       <div style="width: 4rem; margin: 0 auto;">
         <van-divider slot :style="styleObj">
-          ··· 版权登记 ···
+          ··· 版权维权 ···
         </van-divider>
         <div class="decorate">==</div>
       </div>
       <div class="softCopyRight" style="text-indent: 20px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
-        <div>版权（copyright）即著作权,是指作者及其他权利人对文学、艺术和科学作品享有的人身权和财产权的总称;是用来表述创作者因其文学和艺术作品而享有的权利的一个法律用语。</div>
-        <div style="padding-top: 20px;">版权是对计算机程序、文学著作、音乐作品、照片、电影等的复制权利的合法所有权。除非转让给另一方，版权通常被认为是属于作者的。</div>
-        <div style="padding-top: 20px;">版权分为著作人格权与著作财产权，其中著作人格权的内涵包括了公开发表权、姓名表示权及禁止他人以扭曲、变更方式，利用著作损害著作人名誉的权利。著作财产权是无形的财产权，是基于人类智识所产生之权利，故属知识产权之一种，包括重制权、公开口述权、公开播送权、公开上映权、公开演出权、公开传输权、公开展示权、改作权、散布权、出租权等。</div>
+        <div>为保护创新创作，维护著作权人的合法权益，南山版权产业服务中心开通了线上维权咨询平台。版权是知识产权的重要组成部分，是文化产业的核心资源，对推动经济发展和社会进步有着极其重要的作用。南山版权产业服务中心将着力解决著作权人的烦恼，让他们专心创作、放心交易、版权无忧；帮助著作权人大力维权，让“尊重知识、尊重劳动、尊重创作、尊重版权”的理念不断深入人心，打造良好版权生态，推动版权产业的健康繁荣发展。</div>
+        <div style="padding-top: 5px;">南山版权产业服务中心是中国版权保护中心指导下的非盈利性公共服务平台，是著作权人快速的维权通道，具有集约化、专业化、网络化、流程化、高效化、公益化六大特点。平台具备三大服务优势：首先是为著作权人提供一站式管家维权服务，避免权利人维权的繁琐流程；其次可以提供低成本维权解决方案，规避权利人的维权投入风险；第三能提供先进的互联网取证和存证服务，解决取证难、存证贵的痛点，最大限度地降低权利人的维权成本。</div>
       </div>
     </div>
     <div class="advantageSection">
       <div style="width: 4rem; margin: 0 auto;">
         <van-divider slot :style="styleObj">
-          ··· 软件著作权 ···
+          ··· 版权存证 ···
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="softCopyRight">
-        <van-grid :gutter="10">
-          <van-grid-item v-for="(item, key) in softCopyRightList" :key="key" :text="item" />
-        </van-grid>
+      <div class="softCopyRight" style="text-indent: 20px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+        <div>过区块链不可篡改和可溯源等特性，将作品信息实时保存上链，形成有效的登记存证信息，作为维权的确权电子证据。</div>
+      </div>
+    </div>
+    <div class="advantageSection">
+      <div style="width: 4rem; margin: 0 auto;">
+        <van-divider slot :style="styleObj">
+          ··· 维权监测 ···
+        </van-divider>
+        <div class="decorate">==</div>
+      </div>
+      <div class="softCopyRight" style="text-indent: 0px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+        <div>侵权证据取证：通过全网监测，发现侵权行为后通过远程电子公证系统，及时对侵权行为进行采集，同时结合区块链不可篡改的特性，将侵权证据进行上链固定，形成可信的版权侵权证据。</div>
+        <div style="margin-top: 20px;">针对权利人提供的版权作品，在权利人指定的平台范围内（可以覆盖全网、全平台）进行7*24小时不间断监测。支持影视、体育、音乐、图文等类型作品监测。</div>
+        <div style="margin-top: 20px;">针对互联网海量传播视频、音频、文字、游戏等各种作品类型进行监测，南山版权产业服务中心拥有专业的法律工作人员，根据委托人的授权，向涉嫌侵权的网站发送删除通知函，追踪网站删除侵权链接的情况，确保盗版内容及时、彻底删除。</div>
+
+        <div style="margin-top: 20px;">投诉下架</div>
+        <div>针对权利人的作品，向潜在侵权平台发送版权投诉函，平台方在收到投诉函后，就应负起监测、删除、排除的义务。以此预防侵权行为的发生。</div>
+
+        <div style="margin-top: 20px;">中心设立“网络视频音频版权检测及调查取证服务平台”，针对互联网海量传播的视频、音频、文字、游戏等各种作品类型检测。根据委托人的授权，通过技术手段搜索侵权内容，想涉嫌侵权的网站、电商平台发送删除通知函。追踪侵权链接的删除情况，确保盗版内容及时、彻底删除。</div>
+        <div>
+          <img style="margin-top: 20px;width: 100%;" :src="require('@/assets/images/banquanweiquan2.png')" />
+        </div>
       </div>
     </div>
 
     <div class="advantageSection">
       <div style="width: 4rem; margin: 0 auto;">
         <van-divider slot :style="styleObj">
-          ··· 作品著作权 ···
+          ··· 固证诉讼 ···
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="worksItem">
-        <img :src="worksImg" class="worksImg" />
+      <div class="softCopyRight" style="text-indent: 20px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+        <div>根据权利人的委托，由专业维权人员通过远程电子公证与线下公证相结合等多元化方式，对侵权行为进行及时的证据固定，同时进行下线处理。根据需要申请行政执法或向法院起诉。</div>
       </div>
     </div>
 
     <div class="advantageSection">
       <div style="width: 4rem; margin: 0 auto;">
         <van-divider slot :style="styleObj">
-          ··· 核心优势 ···
+          ··· 司法鉴定 ···
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="advantageItem" v-for="(item, key) in advantageList" :key="key">
-        <div class="fcircle">
-          <div class="scircle">{{key + 1}}</div>
-        </div>
-        <div class="">
-          <div class="title"> // {{item.title}}</div>
-          <div class="content">{{item.content}}</div>
-        </div>
+      <div class="softCopyRight" style="font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+        <div style="text-indent: 20px;">中国版权保护中心版权鉴定委员会是我国专门从事版权鉴定的国家级专业机构。根据《人民法院对外委托司法鉴定管理规定》，中国版权保护中心版权鉴定委员会于2003年经最高人民法院审核批准，进入人民法院司法鉴定人名册（登记号：法38001号）。 </div>
+        <div>中国版权保护中心的鉴定范围是作品或者制品异同性鉴定，即对文字、音乐、美术、摄影、影视、计算机软件、私服外挂、图形等作品和录音录像制品异同性进行比对并出具鉴定报告。</div>
       </div>
     </div>
 
@@ -75,20 +87,8 @@
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="flowItem">
-        <img :src="flowImg" class="flowImg" />
-      </div>
-    </div>
-
-    <div class="advantageSection">
-      <div style="width: 4rem; margin: 0 auto;">
-        <van-divider slot :style="styleObj">
-          ··· 办理时限 ···
-        </van-divider>
-        <div class="decorate">==</div>
-      </div>
-      <div class="handleItem">
-        <img :src="handleImg" class="handleImg" />
+      <div class="softCopyRight" style="padding: 0 3px;">
+        <img style="margin-top: 0px;width: 100%;" :src="require('@/assets/images/banquanweiquan1.png')" />
       </div>
     </div>
 
@@ -107,7 +107,8 @@
     data() {
       return {
         data: {
-          "busiType": "",
+          "busiType": "BQWQ",
+          "busiName": "版权维权",
           "enterpriseName": "",
           "financialDemandLimit": "",
           "iprCount": "",
@@ -115,8 +116,8 @@
         },
         styleObj: {
           margin: 0,
-          color: '#fc7c21',
-          borderColor: '#fc7c21',
+          color: '#40b97a',
+          borderColor: '#40b97a',
           fontSize: '.32rem',
           fontFamily: 'PingFangSC-Thin'
         },
@@ -181,7 +182,7 @@
 <style scoped lang="less">
   .pageWrapper {
     min-height: 100vh;
-    background: #E53406;
+    background: #108641;
     line-height: .4rem;
     .concatPhone {
       font-family: PingFangSC-Semibold;
@@ -235,7 +236,7 @@
         .title {
           font-family: PingFangSC-Thin;
           font-size: 0.28rem;
-          color: #fc7c21;
+          color: #40b97a;
         }
 
         ;
@@ -246,7 +247,7 @@
 
         .fcircle {
           background: #ffffff;
-          border: 2px solid #fc7c21;
+          border: 2px solid #40b97a;
           width: 24px;
           height: 24px;
           border-radius: 100%;
@@ -259,7 +260,7 @@
 
         .scircle {
           background: #ffffff;
-          border: 2px solid #fc7c21;
+          border: 2px solid #40b97a;
           width: 18px;
           height: 18px;
           border-radius: 100%;
@@ -268,7 +269,7 @@
           justify-content: center;
           font-family: Helvetica-Condensed-Black-Se;
           font-size: 0.3rem;
-          color: #fc7c21;
+          color: #40b97a;
           font-weight: bold;
         }
       }
@@ -277,7 +278,7 @@
 
       .decorate {
         text-align: center;
-        color: #fc7c21;
+        color: #40b97a;
         font-size: .32rem;
       }
 
@@ -305,7 +306,7 @@
       color: #ffffff;
       letter-spacing: 0;
       text-align: center;
-      background: #fc7c21;
+      background: #40b97a;
       border-radius: 4px;
       width: 6.9rem;
       height: 0.96rem;

@@ -94,6 +94,18 @@
           text: '相关服务',
           icon: require('@/assets/images/module_3.png'),
           type: 'service'
+        }, {
+          text: '版权贸易',
+          icon: require('@/assets/images/banquanmaoyi.png'),
+          type: '/copyrightMaoyi'
+        }, {
+          text: '版权维权',
+          icon: require('@/assets/images/banquanweiquan.png'),
+          type: '/CopyrightWeiquan'
+        }, {
+          text: '数字版权',
+          icon: require('@/assets/images/shuzibanquan.png'),
+          type: 'service'
         }],
         data: [{
           text: '软件著作',
@@ -204,6 +216,7 @@
             this.$router.push('/copyrightService')
             break;
           default:
+            this.$router.push(type)
             break;
         }
       },

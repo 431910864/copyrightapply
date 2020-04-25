@@ -17,11 +17,32 @@
       </van-form>
     </div>
     <div @click="onSubmit" class="submitBtn">提交申请</div>
-    <financeItem title='质押贷款' :data="list1" color="#2e4bd4"></financeItem>
-    <financeItem title='质权登记' :data="list2" color="#2e4bd4"></financeItem>
-    <financeItem title='撤销质权' :data="list3" color="#2e4bd4"></financeItem>
-    <coreAdvantage :data="advantageList" color="#2e4bd4"></coreAdvantage>
+<!--    <financeItem title='质押贷款' :data="list1" color="#2e4bd4"></financeItem>-->
+<!--    <financeItem title='质权登记' :data="list2" color="#2e4bd4"></financeItem>-->
+<!--    <financeItem title='撤销质权' :data="list3" color="#2e4bd4"></financeItem>-->
+<!--    <coreAdvantage :data="advantageList" color="#2e4bd4"></coreAdvantage>-->
 
+    <div class="advantageSection">
+      <div style="width: 4rem; margin: 0 auto;">
+        <van-divider slot :style="styleObj">
+          ··· 版权金融 ···
+        </van-divider>
+        <div class="decorate">==</div>
+      </div>
+      <div class="softCopyRight" style="text-indent: 0px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+        <div>南山版权产业服务中心立足于为权利人提供确权、版权质权登记等公共服务，深度整合版权质押融资机构间业务流程，为著作权人与各类金融机构牵线搭桥，开展版权金融中介及融资补贴申请代理服务，促进版权与资本对接，并助力企业降低融资成本：</div>
+        <div style="padding-top: 0;"> ● 为文化、科技企业提供版权质押贷款咨询，设计版权质押融资方案，协助企业实现版权质押贷款，争取到较好的贷款利率；</div>
+        <div style="padding-top: 0;">● 根据文化、科技企业特征及用款需求，推荐和对接金融机构及融资业务中所需的评估、担保机构，整合业务流程，缩短贷款周期；</div>
+        <div style="padding-top: 0;">● 融资补贴奖励申请代理服务，降低综合融资成本。</div>
+        <div style="padding-top: 20px;">南山版权产业服务中心是中国版权版权保护中心官方指定的版权质权登记平台，围绕版权资产为企业提供综合性版权金融解决方案，其中版权质押融资是我衷心的一项特色服务，自服务开展以来，为数十家企业提供了个性化、可落地的版权融资方案，融资金额超过一亿元。</div>
+        <div style="padding-top: 0;">版权质押融资是一种创新的、区别于传统的以不动产或动产作为抵押物向金融机构申请融资的手段，主要是指文化创意企业、科技企业等以自身合法拥有、控制的版权作为质押标的进行融资的方式。这种融资方式既有利于盘活、用好文化科技企业的版权资产，又能够有效促进文化、科技与金融的对接，支持文化创意、科技等企业开展相关的生产经营活动。</div>
+        <div style="padding-top: 0;">目前，在我国进行版权质押融资并不存在法律层面的障碍。艺术品中有很多都存在著作权，如书画作品、雕塑作品等。理论上讲，这些艺术品著作权中的财产权利都可用于质押融资。</div>
+        <div style="padding-top: 0;">南山版权产业服务中心是中国版权保护中心指导下的非盈利性公共服务平台，是著作权人快速的维权通道，具有集约化、专业化、网络化、流程化、高效化、公益化六大特点。平台具备三大服务优势：首先是为著作权人提供一站式管家维权服务，避免权利人维权的繁琐流程；其次可以提供低成本维权解决方案，规避权利人的维权投入风险；第三能提供先进的互联网取证和存证服务，解决取证难、存证贵的痛点，最大限度地降低权利人的维权成本。</div>
+        <div>
+          <img style="margin-top: 20px;width: 100%;" :src="require('@/assets/images/hezuo.png')" />
+        </div>
+      </div>
+    </div>
     <div class="advantageSection">
       <div style="width: 4rem; margin: 0 auto .3rem auto;">
         <van-divider slot :style="styleObj">
@@ -46,7 +67,7 @@
       </div>
     </div>
 
-    <div class="concatPhone">0755-86952852</div>
+    <div class="concatPhone"></div>
   </div>
 </template>
 
@@ -82,8 +103,8 @@
         },
         backgroundImage: require('@/assets/images/finance.png'),
         worksImg: require('@/assets/images/works.png'),
-        flowImg: require('@/assets/images/flow.png'),
-        handleImg: require('@/assets/images/handleDate_2.png'),
+        flowImg: require('@/assets/images/banquanjinrong2.png'),
+        handleImg: require('@/assets/images/banquanjinrong1.png'),
         styleObj: {
           margin: 0,
           color: '#2e4bd4',

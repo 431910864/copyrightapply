@@ -6,9 +6,9 @@
       </van-swipe-item>
     </van-swipe>
     <div class="section">
-      <div class="hotServe">版权登记</div>
+<!--      <div class="hotServe">版权登记</div>-->
       <ul class="commonEssue">
-        <li v-for="(item, key) in list1" :key="key" @click="handleClick(list1[0].type, item)">
+        <li v-for="(item, key) in list1" :key="key" style="display: flex;align-items: center;justify-content: space-between;" @click="handleClick(list1[0].type, item)">
           <span>
             <img :src="item.icon" class="itemIcon" />
             <span>{{item.label}}</span>
@@ -17,22 +17,22 @@
         </li>
       </ul>
     </div>
-    <div class="section">
-      <div class="hotServe">版权金融</div>
+<!--    <div class="section">-->
+<!--      <div class="hotServe">版权金融</div>-->
+<!--      <ul class="commonEssue">-->
+<!--        <li v-for="(item, key) in list2" :key="key" @click="handleClick(list2[0].type, item)">-->
+<!--          <span>-->
+<!--            <img :src="item.icon" class="itemIcon" />-->
+<!--            <span>{{item.label}}</span>-->
+<!--          </span>-->
+<!--          <van-icon name="arrow" />-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+    <div class="section" style="margin-top: 15px;">
+<!--      <div class="hotServe">相关服务</div>-->
       <ul class="commonEssue">
-        <li v-for="(item, key) in list2" :key="key" @click="handleClick(list2[0].type, item)">
-          <span>
-            <img :src="item.icon" class="itemIcon" />
-            <span>{{item.label}}</span>
-          </span>
-          <van-icon name="arrow" />
-        </li>
-      </ul>
-    </div>
-    <div class="section">
-      <div class="hotServe">相关服务</div>
-      <ul class="commonEssue">
-        <li v-for="(item, key) in list3" :key="key" @click="handleClick(list3[0].type, item)">
+        <li v-for="(item, key) in list3" :key="key" style="display: flex;align-items: center;justify-content: space-between;" @click="handleClick(list3[0].type, item)">
           <span>
             <img :src="item.icon" class="itemIcon" />
             <span>{{item.label}}</span>
@@ -84,29 +84,29 @@
           "WQJC":"维权监测",
           "SSCZ":"诉讼存证",
         },
-        list2: [{
-            icon: require('@/assets/images/service_3.png'),
-            label: '质押贷款',
-            type: 2
-          },
-          {
-            icon: require('@/assets/images/service_4.png'),
-            label: '质权登记'
-          },
-          {
-            icon: require('@/assets/images/service_5.png'),
-            label: '撤销质押'
-          }
-        ],
+        // list2: [{
+        //     icon: require('@/assets/images/service_3.png'),
+        //     label: '质押贷款',
+        //     type: 2
+        //   },
+        //   {
+        //     icon: require('@/assets/images/service_4.png'),
+        //     label: '质权登记'
+        //   },
+        //   {
+        //     icon: require('@/assets/images/service_5.png'),
+        //     label: '撤销质押'
+        //   }
+        // ],
         list3: [{
             icon: require('@/assets/images/service_6.png'),
             label: '软件测试',
             type: 3
           },
-          {
-            icon: require('@/assets/images/service_7.png'),
-            label: '版权交易'
-          },
+          // {
+          //   icon: require('@/assets/images/service_7.png'),
+          //   label: '版权交易'
+          // },
           {
             icon: require('@/assets/images/service_8.png'),
             label: 'DCI服务'
@@ -123,14 +123,14 @@
             icon: require('@/assets/images/service_11.png'),
             label: '商标'
           },
-          {
-            icon: require('@/assets/images/service_12.png'),
-            label: '维权监测'
-          },
-          {
-            icon: require('@/assets/images/service_13.png'),
-            label: '诉讼存证'
-          }
+          // {
+          //   icon: require('@/assets/images/service_12.png'),
+          //   label: '维权监测'
+          // },
+          // {
+          //   icon: require('@/assets/images/service_13.png'),
+          //   label: '诉讼存证'
+          // }
         ],
         types: [{
           text: '版权登记',

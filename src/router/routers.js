@@ -19,6 +19,8 @@ const HandlingStatus = () => import('@/views/HandlingStatus');
 const MyService = () => import('@/views/MyService');
 const Setting = () => import('@/views/Setting');
 const ContactUS = () => import('@/views/ContactUS');
+const CopyrightMaoyi = () => import('@/views/CopyrightMaoyi');
+const CopyrightWeiquan = () => import('@/views/CopyrightWeiquan');
 
 export default [{
     path: '/',
@@ -98,6 +100,22 @@ export default [{
       title: '软件著作权登记'
     },
     component: copyrightTypes
+  },
+  {
+    path: '/copyrightMaoyi',
+    name: '版权贸易',
+    meta: {
+      title: '版权贸易'
+    },
+    component: CopyrightMaoyi
+  },
+  {
+    path: '/copyrightWeiquan',
+    name: '版权维权',
+    meta: {
+      title: '版权维权'
+    },
+    component: CopyrightWeiquan
   },
   {
     path: '/centerIntroduction',
