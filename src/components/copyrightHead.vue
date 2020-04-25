@@ -9,10 +9,10 @@
       </div> -->
     </div>
 
-    <div class="searchWrapper" style="display: flex;align-items: center;justify-content: center;background:#ffffff;box-shadow:0 2px 8px 0 rgba(0,0,0,0.15);border-radius:4px;min-height:96px;">
+    <div @click="toPhone" class="searchWrapper" style="display: flex;align-items: center;justify-content: center;background:#ffffff;box-shadow:0 2px 8px 0 rgba(0,0,0,0.15);border-radius:4px;min-height:96px;">
       <div style="font-size:28px;letter-spacing:0;text-align:center;display: flex;align-items: center;justify-content: center;">
         <div><img style="width:28px;height:28px;" :src="getIcon" /></div>
-        <div style="padding-left: 10px;height:32px;display: flex;align-items: center;line-height: 32px;padding-top: 4px;" :style="{color: color}">0755-86952852</div>
+        <div style="padding-left: 10px;height:32px;display: flex;align-items: center;line-height: 32px;padding-top: 4px;" :style="{color: color}">{{phone}}</div>
       </div>
 <!--      <div style="width: 4.4rem; margin: 0 auto;">-->
 <!--        <van-divider slot :style="{margin: 0, color: color, borderColor: color, fontSize: '.24rem', fontFamily:'PingFangSC-Thin'}">-->
@@ -62,6 +62,7 @@
           phoneIcon4: require('@/assets/images/phone_icon4.png'),
         },
         value: '',
+        phone: '0755-86952852',
       }
     },
     computed: {
@@ -70,6 +71,9 @@
       }
     },
     methods: {
+      toPhone() {
+        window.location.href = (`tel:${this.phone}#mp.weixin.qq.com`);
+      },
       async onInput(e) {
         const { message, error, ...rest } = await WeChatCopyrightFinanceExist(this.value);
         const msg = message ? (message + ' error: ' + error) : rest && rest.msg || '';

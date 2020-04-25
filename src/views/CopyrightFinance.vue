@@ -1,6 +1,6 @@
 <template>
   <div class="pageWrapper">
-    <copyrightHead :backgroundImage="backgroundImage" color="#576b95" className="copyrightFinance"></copyrightHead>
+    <copyrightHead :backgroundImage="backgroundImage" color="#0049d2" className="copyrightFinance"></copyrightHead>
     <div class="loginForm">
       <van-form @submit="onSubmit">
         <van-action-sheet v-model="show" :actions="actions" @select="onSelect"/>
