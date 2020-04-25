@@ -7,19 +7,47 @@
         <span class="date">{{date}}</span>
       </div>
     </header>
-
     <div class="content">
-      <div class="section">《南山版权服务中心》是中国版权保护中心与南山区人民政府共同打造的一站式版权综合服务平台，致力于为深圳及粤港澳大湾区的文化创意、科技创新企业提供优质、便捷、全面的版权相关服务。</div>
-      <div class="section">本中心在深圳南山知识产权保护中心开设对外服务窗口，工作流程、服务标准、业务类型全面对接中华版权代理总公司。</div>
+      <div class="section">
+        南山版权服务中心是中国版权保护中心与南山区人民政府共同打造的国家级版权综合服务平台，由中华版权代理总公司下属企业——深圳华代产业服务有限公司 （英文名称: Shenzhen Huadai Industry Service Co., Ltd.；简称：深圳华代公司）负责运营。在南山知识产权保护中心开设对外服务窗口，工作流程、服务标准、业务类型全面对接中国版权保护中心，致力于为深圳及粤港澳大湾区的文化创意、科技创新企业提供优质、便捷、全面的版权相关服务。<br />
+        中心自成立以来，与国内外多家版权运营服务机构建立良好的合作关系，依托中国版权保护中心的专业、人才优势，迅速组建了一支精通版权业务，熟悉法律、金融知识，富有企业管理、研发设计经验的专家队伍，已为深圳及周边地区众多企业、个人、机构提供优质服务。<br />
+        南山版权产业服务中心的主要业务包括版权登记、版权维权、版权交易、版权金融四大板块，为深圳及粤港澳大湾区的创新、创意企业提供从确权、维权到交易运营的一站式版权服务，具体服务项包括：软件著作权登记、作品登记、版权维权咨询、版权交易运营、版权质押融资、版权资产管理、版权数据分析、版权鉴定、版权实务培训、版权政策咨询、版权产业园区孵化运营、科技文化产业投资等。
+      </div>
+      <img style="width: 100%;margin-top: 20px;margin-bottom: 10px;" :src="require('@/assets/images/c3.png')" />
     </div>
-
-    <div class="content" style="background: #fff; margin-top: .4rem;">
+    <div class="content" style="background: #fff; margin-top: .2rem;">
       <div class="items">
-        <div class="label">· 发展优势 ·</div>
+        <div class="label">· 发展历程 ·</div>
         <img :src="lineIcon" class="images"/>
       </div>
-      <div class="section" style="margin-bottom: .6rem;">南山版权产业服务中心设立目的是向南山区及其关联业务地区的企业提供全方位、专业化、体系化的版权综合服务, 为南山区文化创意及高新技术繁荣发展提供更加便捷高效的综合性版权服务及核心要素支撑, 有效提升南山区区域创造、运用和保护能力。</div>
-      <div class="section"> 目前南山版权产业服务中心主要业务为版权登记、版权维权、版权交易、版权金融四大版权相关板块。同时，南山版权产业服务中心每年将会承办各种版权相关培训活动，进一步提升版权人才的专业素质，为版权产业的深度研发和平台、跨行业合作提供人才储备。</div>
+      <img style="width: 100%;margin-top: 10px;margin-bottom: 10px;" :src="require('@/assets/images/c2.png')" />
+      <div class="" style="margin-bottom: .6rem;">南2019年10月11日，中国版权保护中心主任段桂鉴莅临南山版权产业服务中心视察指导，勉励现场工作人员把服务工作做精做细，为企业提供优质高效的本地化版权服务。</div>
+      <img style="width: 100%;margin-top: 10px;margin-bottom: 10px;" :src="require('@/assets/images/c4.png')" />
+      <div class="" style="margin-bottom: .6rem;"> 2019年10月11日，中国版权保护中心主任段桂鉴莅临南山版权产业服务中心视察指导，勉励现场工作人员把服务工作做精做细，为企业提供优质高效的本地化版权服务。</div>
+      <img style="width: 100%;margin-top: 10px;margin-bottom: 10px;" :src="require('@/assets/images/c1.png')" />
+      <div class="" style="margin-bottom: .6rem;">2019年11月11日，深圳市副市长黄敏，中国版权保护中心副主任魏红，南山区委书记王强，深圳市市场监督管理局局长邝兵，南山区委副书记、区长黄湘岳等领导共同为南山版权产业服务中心揭牌。</div>
+    </div>
+<!--    <div class="content">-->
+<!--      <div class="section">《南山版权服务中心》是中国版权保护中心与南山区人民政府共同打造的一站式版权综合服务平台，致力于为深圳及粤港澳大湾区的文化创意、科技创新企业提供优质、便捷、全面的版权相关服务。</div>-->
+<!--      <div class="section">本中心在深圳南山知识产权保护中心开设对外服务窗口，工作流程、服务标准、业务类型全面对接中华版权代理总公司。</div>-->
+<!--    </div>-->
+
+<!--    <div class="content" style="background: #fff; margin-top: .4rem;">-->
+<!--      <div class="items">-->
+<!--        <div class="label">· 发展优势 ·</div>-->
+<!--        <img :src="lineIcon" class="images"/>-->
+<!--      </div>-->
+<!--      <div class="section" style="margin-bottom: .6rem;">南山版权产业服务中心设立目的是向南山区及其关联业务地区的企业提供全方位、专业化、体系化的版权综合服务, 为南山区文化创意及高新技术繁荣发展提供更加便捷高效的综合性版权服务及核心要素支撑, 有效提升南山区区域创造、运用和保护能力。</div>-->
+<!--      <div class="section"> 目前南山版权产业服务中心主要业务为版权登记、版权维权、版权交易、版权金融四大版权相关板块。同时，南山版权产业服务中心每年将会承办各种版权相关培训活动，进一步提升版权人才的专业素质，为版权产业的深度研发和平台、跨行业合作提供人才储备。</div>-->
+<!--    </div>-->
+
+    <div class="content" style="background: #fff;  padding: 0;">
+      <div class="items">
+        <div class="label">· 中心大厅 ·</div>
+        <img :src="lineIcon" class="images"/>
+      </div>
+      <div style="text-align: center;"><img :src="centerIcon1" class="images" /></div>
+      <div style="text-align: center;"><img :src="centerIcon2" class="images" /></div>
     </div>
 
     <div class="content" style="background: #fff; padding: 0;">
@@ -33,15 +61,6 @@
         <div class="">地址：深圳市南山区粤海街道深圳湾科技生态园</div>
       </div>
       <div style="text-align: center;"><img :src="localtionIcon" class="images" /></div>
-    </div>
-
-    <div class="content" style="background: #fff;  padding: 0;">
-      <div class="items">
-        <div class="label">· 中心大厅 ·</div>
-        <img :src="lineIcon" class="images"/>
-      </div>
-      <div style="text-align: center;"><img :src="centerIcon1" class="images" /></div>
-      <div style="text-align: center;"><img :src="centerIcon2" class="images" /></div>
     </div>
 
   </div>
