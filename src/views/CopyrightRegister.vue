@@ -122,7 +122,7 @@
         },
         worksImg: require('@/assets/images/works.png'),
         flowImg: require('@/assets/images/flow_1.png'),
-        handleImg: require('@/assets/images/handleDate_1.png'),
+        handleImg: require('@/assets/images/banquandengji1.png'),
         show: false,
         busiType: {
           "RJZZQ":"软件著作权",

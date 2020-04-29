@@ -22,6 +22,7 @@ const ContactUS = () => import('@/views/ContactUS');
 const CopyrightMaoyi = () => import('@/views/CopyrightMaoyi');
 const CopyrightWeiquan = () => import('@/views/CopyrightWeiquan');
 const BusinessCooperation = () => import('@/views/BusinessCooperation');
+const CopyrightShuzi = () => import('@/views/CopyrightShuzi');
 
 export default [{
     path: '/',
@@ -86,9 +87,9 @@ export default [{
     },
     component: CopyrightFinance
   },
-  {
-    path: '/copyrightService',
-    name: '相关服务',
+    {
+      path: '/copyrightService',
+      name: '相关服务',
     meta: {
       title: '相关服务'
     },
@@ -205,6 +206,14 @@ export default [{
       title: '商务合作'
     },
     component: BusinessCooperation
+  },
+  {
+    path: '/CopyrightShuzi',
+    name: '数字版权',
+    meta: {
+      title: '数字版权'
+    },
+    component: CopyrightShuzi
   },
   {
     path: '/notFund',

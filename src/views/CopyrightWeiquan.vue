@@ -17,7 +17,7 @@
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="softCopyRight" style="text-indent: 20px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+      <div class="softCopyRight" style="text-indent: 20px;line-height: 21px;font-size: .28rem;padding-left: 5px;padding-right: 5px;">
         <div>为保护创新创作，维护著作权人的合法权益，南山版权产业服务中心开通了线上维权咨询平台。版权是知识产权的重要组成部分，是文化产业的核心资源，对推动经济发展和社会进步有着极其重要的作用。南山版权产业服务中心将着力解决著作权人的烦恼，让他们专心创作、放心交易、版权无忧；帮助著作权人大力维权，让“尊重知识、尊重劳动、尊重创作、尊重版权”的理念不断深入人心，打造良好版权生态，推动版权产业的健康繁荣发展。</div>
         <div style="padding-top: 5px;">南山版权产业服务中心是中国版权保护中心指导下的非盈利性公共服务平台，是著作权人快速的维权通道，具有集约化、专业化、网络化、流程化、高效化、公益化六大特点。平台具备三大服务优势：首先是为著作权人提供一站式管家维权服务，避免权利人维权的繁琐流程；其次可以提供低成本维权解决方案，规避权利人的维权投入风险；第三能提供先进的互联网取证和存证服务，解决取证难、存证贵的痛点，最大限度地降低权利人的维权成本。</div>
       </div>
@@ -40,7 +40,7 @@
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="softCopyRight" style="text-indent: 0px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+      <div class="softCopyRight" style="text-indent: 0px;line-height: 21px;font-size: .28rem;padding-left: 5px;padding-right: 5px;">
         <div>侵权证据取证：通过全网监测，发现侵权行为后通过远程电子公证系统，及时对侵权行为进行采集，同时结合区块链不可篡改的特性，将侵权证据进行上链固定，形成可信的版权侵权证据。</div>
         <div style="margin-top: 20px;">针对权利人提供的版权作品，在权利人指定的平台范围内（可以覆盖全网、全平台）进行7*24小时不间断监测。支持影视、体育、音乐、图文等类型作品监测。</div>
         <div style="margin-top: 20px;">针对互联网海量传播视频、音频、文字、游戏等各种作品类型进行监测，南山版权产业服务中心拥有专业的法律工作人员，根据委托人的授权，向涉嫌侵权的网站发送删除通知函，追踪网站删除侵权链接的情况，确保盗版内容及时、彻底删除。</div>
@@ -62,7 +62,7 @@
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="softCopyRight" style="text-indent: 20px;font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+      <div class="softCopyRight" style="text-indent: 20px;line-height: 21px;font-size: .28rem;padding-left: 5px;padding-right: 5px;">
         <div>根据权利人的委托，由专业维权人员通过远程电子公证与线下公证相结合等多元化方式，对侵权行为进行及时的证据固定，同时进行下线处理。根据需要申请行政执法或向法院起诉。</div>
       </div>
     </div>
@@ -74,7 +74,7 @@
         </van-divider>
         <div class="decorate">==</div>
       </div>
-      <div class="softCopyRight" style="font-size: 12px;line-height: 24px;padding-left: 5px;padding-right: 5px;">
+      <div class="softCopyRight" style="line-height: 21px;font-size: .28rem;padding-left: 5px;padding-right: 5px;">
         <div style="text-indent: 20px;">中国版权保护中心版权鉴定委员会是我国专门从事版权鉴定的国家级专业机构。根据《人民法院对外委托司法鉴定管理规定》，中国版权保护中心版权鉴定委员会于2003年经最高人民法院审核批准，进入人民法院司法鉴定人名册（登记号：法38001号）。 </div>
         <div>中国版权保护中心的鉴定范围是作品或者制品异同性鉴定，即对文字、音乐、美术、摄影、影视、计算机软件、私服外挂、图形等作品和录音录像制品异同性进行比对并出具鉴定报告。</div>
       </div>

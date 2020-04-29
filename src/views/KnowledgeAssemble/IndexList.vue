@@ -27,7 +27,7 @@
                 <div>
                   <div>{{vo.fileName}}</div>
                 </div>
-                <div @click="down(vo.fileUrl)" :href="vo.fileUrl">下载</div>
+                <div class="" style="color: rgb(46, 75, 212);" @click="down(vo.fileUrl)" :href="vo.fileUrl">下载</div>
               </div>
             </van-cell>
           </div>
@@ -83,7 +83,7 @@
           timer: null,
           isRefresh: false,  //是否在刷新
         }],
-        active: '0',
+        active: 0,
         $this: {},
       }
     },
@@ -120,6 +120,7 @@
       },  //是否在刷新
     },
     mounted() {
+      this.active = Number(this.$route.query.active);
       this.loadInit();
     },
     methods: {
@@ -138,6 +139,7 @@
         })
       },
       loadInit() {
+        // this.active = (this.$route.query.active || 0);
       },
       onRefresh() {
         this.list = [];

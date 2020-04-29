@@ -78,7 +78,7 @@
     },
     methods: {
       toPhone() {
-        window.location.href = (`tel:${this.phone}#mp.weixin.qq.com`);
+        window.location.href = (`tel:${this.phone}`);
       },
       async onInput(e) {
         const { message, error, ...rest } = await WeChatCopyrightFinanceExist(this.value);

@@ -105,7 +105,7 @@
         }, {
           text: '数字版权',
           icon: require('@/assets/images/shuzibanquan.png'),
-          type: 'service'
+          type: '/CopyrightShuzi'
         }],
         data: [{
           text: '软件著作',

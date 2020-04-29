@@ -293,7 +293,7 @@ export const WeChatOfficialWebAuthGetWxUserInfo = async (openId) => {
 //
 
 export const WeChatTemplateFile = async (page) => {
-  return await get(`TemplateFile?limit=${limit}&page=${page}`, {
+  return await get(`/wechat/TemplateFile?limit=${limit}&page=${page}`, {
     limit,
     page,
   })

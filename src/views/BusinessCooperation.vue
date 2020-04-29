@@ -58,25 +58,37 @@
           9: 'GovermentApply',
         },
         items: [{
-          text: '版权登记'
+          text: '版权登记',
+          path: 'RegisterCopyright',
         }, {
-          text: '版权维权'
+          text: '版权维权',
+          path: 'CopyrightSafeguard',
         }, {
-          text: '版权金融'
+          text: '版权金融',
+          path: 'CopyrightFinance',
         }, {
-          text: '版权贸易'
+          text: '版权贸易',
+          path: 'CopyrightTrade',
         }, {
-          text: '数字版权'
+          text: '数字版权',
+          path: 'DICRegister',
+        },
+        //   {
+        //   text: 'DCI登记',
+        //   path: 'DICRegister',
+        // },
+          {
+          text: '软件测试',
+          path: 'SoftwareTest',
         }, {
-          text: 'DCI登记'
+          text: '专利申请',
+          path: 'PatentApply',
         }, {
-          text: '软件测试'
+          text: '商标注册',
+          path: 'RegisterTrademark',
         }, {
-          text: '专利申请'
-        }, {
-          text: '商标注册'
-        }, {
-          text: '政府项目申报'
+          text: '政府项目申报',
+          path: 'GovermentApply',
         }],
         dataList: [{
           title: '版权登记介绍',
@@ -143,7 +155,7 @@
     },
     methods: {
       handelClick(index) {
-        this.curComponent = this.componentObj[index]
+        this.curComponent = this.items[index].path;
       }
     }
   }

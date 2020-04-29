@@ -46,7 +46,7 @@
     <div class="advantageSection">
       <div style="width: 4rem; margin: 0 auto .3rem auto;">
         <van-divider slot :style="styleObj">
-          ··· 登记流程 ···
+          ··· 质押登记流程 ···
         </van-divider>
         <div class="decorate">==</div>
       </div>
