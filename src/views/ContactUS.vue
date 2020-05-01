@@ -171,6 +171,7 @@
             letter-spacing:0;
             text-align:left;
             margin-top: .2rem;
+            font-weight: bold;
           }
           .describe {
             font-family: PingFangSC-Regular;
@@ -257,6 +258,7 @@
           margin-left: -.4rem;
           top: 50%;
           margin-top: -.4rem;
+          border-radius: .1rem;
         }
       }
       div:after {

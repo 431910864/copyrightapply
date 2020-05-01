@@ -88,10 +88,12 @@
       table{
         width: 100%;
         border:1px solid #e0e0e0;
-        font-size:0.2rem ;
+        th{
+          font-size: .28rem;
+        }
         td{
           text-align: center;
-          font-size: .28rem;
+          font-size: .26rem;
         }
       }
     }

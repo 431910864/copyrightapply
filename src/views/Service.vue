@@ -1,6 +1,6 @@
 <template>
   <div class="pageWrapper">
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+    <van-swipe class="my-swipe" :loop="isLoop" indicator-color="white">
       <van-swipe-item @click="handleClick1(item)" v-for="(item, key) in images" :key="key">
         <img :src="item.src" class="carouselImgs" />
       </van-swipe-item>
@@ -54,6 +54,7 @@
     },
     data() {
       return {
+        isLoop: false,
         moreImg: require('@/assets/images/icon.png'),
         list1: [{
             icon: require('@/assets/images/service_1.png'),
@@ -164,11 +165,7 @@
         images: [
           {
             name: '质押贷款',
-            src: require('@/assets/images/serviceBanner.png')
-          },
-          {
-            name: '质押贷款',
-            src: require('@/assets/images/serviceBanner.png')
+            src: require('@/assets/images/banner.png')
           }
         ]
       }

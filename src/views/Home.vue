@@ -156,7 +156,7 @@
     },
     methods: {
       async onLoad() {
-        const data = await WeChatCentralInfo(0);
+        const data = await WeChatCentralInfo(1);
         if (data) {
           let list = data.data;
           this.notice = list[0];
@@ -232,6 +232,9 @@
   .pageWrapper {
     .noticeBar {
       margin: 0 0 .2rem 0;
+      /deep/ .van-notice-bar__left-icon{
+        color: #2e4bd4;
+      }
     }
 
     .hotWrapper {
