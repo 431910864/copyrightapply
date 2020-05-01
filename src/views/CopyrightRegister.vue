@@ -4,7 +4,7 @@
     <div class="loginForm">
       <van-form @submit="onSubmit">
         <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
-        <van-field v-model="data.busiName" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent" />
+        <van-field v-model="data.busiName" placeholder="选择服务类型" right-icon="play" readonly="" @click="handelEvent('serviceType')" />
         <van-field v-model="data.enterpriseName" placeholder="请输入您的企业名称或姓名" />
         <van-field v-model="data.mobile" placeholder="请输入手机号" />
       </van-form>
@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div class="advantageSection">
+    <div class="advantageSection" @click="handelEvent('timeLimit')">
       <div style="width: 4rem; margin: 0 auto;">
         <van-divider slot :style="styleObj">
           ··· 办理时限 ···
@@ -157,8 +157,12 @@
       }
     },
     methods: {
-      handelEvent() {
-        this.show = true;
+      handelEvent(type) {
+        if (type === 'serviceType') {
+          this.show = true;
+        } else {
+          this.$router.push({path: '/registerCheckInTimeLimit'})
+        }
       },
       onSelect(item) {
         this.show = false;

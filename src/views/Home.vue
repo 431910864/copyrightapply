@@ -1,12 +1,12 @@
 <template>
   <div class="pageWrapper">
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+    <van-swipe :loop="isLoop" class="my-swipe"  indicator-color="white">
       <van-swipe-item @click="handleClick(item)" v-for="(item, key) in images" :key="key">
         <img :src="item.src" class="carouselImgs" />
       </van-swipe-item>
     </van-swipe>
-    <div class="noticeBar">
-      <van-notice-bar color="#151515" background="#fff" text="通知内容通知内容通知内容通知内容通知内容通知内容通知内容通知内容通知内容通知内容" left-icon="volume-o" />
+    <div class="noticeBar" v-if="notice.id">
+      <van-notice-bar color="#151515" background="#fff" :text="notice.title" left-icon="volume-o" />
     </div>
     <van-grid :column-num="3" class="copyrightRam" :border="showBorder">
       <van-grid-item v-for="(item, key) in types" :key="key" :icon="item.icon" :text="item.text" @click="handelEvent(item.type)" />
@@ -43,8 +43,7 @@
   import {
     Button
   } from 'vant';
-  import { WeChatCommonProblem } from "../api/wechat";
-
+  import { WeChatCommonProblem, WeChatCentralInfo, pages } from "../api/wechat";
   export default {
     name: 'HelloWorld',
     components: {
@@ -52,6 +51,8 @@
     },
     data() {
       return {
+        isLoop: false,
+        notice: {},
         busiType1: {
           "RJZZQ":"软件著作权",
           "ZPZZQ":"作品著作权",
@@ -136,20 +137,13 @@
           {
             name: '质押贷款',
             src: require('@/assets/images/banner.png')
-          },
-          {
-            name: '质押贷款',
-            src: require('@/assets/images/banner.png')
-          },
-          {
-            name: '质押贷款',
-            src: require('@/assets/images/banner.png')
           }
         ]
       }
     },
     mounted() {
       this.GetProblem();
+      this.onLoad();
     },
     computed: {
       busiType() {
@@ -161,6 +155,13 @@
       }
     },
     methods: {
+      async onLoad() {
+        const data = await WeChatCentralInfo(0);
+        if (data) {
+          let list = data.data;
+          this.notice = list[0];
+        }
+      },
       handleClick(item) {
         const data = this.getbusiType(item.name) || {};
         const type = this.getType(data.busiType);

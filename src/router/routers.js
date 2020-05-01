@@ -23,6 +23,8 @@ const CopyrightMaoyi = () => import('@/views/CopyrightMaoyi');
 const CopyrightWeiquan = () => import('@/views/CopyrightWeiquan');
 const BusinessCooperation = () => import('@/views/BusinessCooperation');
 const CopyrightShuzi = () => import('@/views/CopyrightShuzi');
+const CopyrightRegisterCheckInTimeLimit = () => import('@/views/CopyrightRegisterCheckInTimeLimit');
+const CopyrightFinaceCheckInTimeLimit = () => import('@/views/CopyrightFinaceCheckInTimeLimit');
 
 export default [{
     path: '/',
@@ -214,6 +216,22 @@ export default [{
       title: '数字版权'
     },
     component: CopyrightShuzi
+  },
+  {
+    path: '/registerCheckInTimeLimit',
+    name: '版权登记办理时限',
+    meta: {
+      title: '版权登记办理时限'
+    },
+    component: CopyrightRegisterCheckInTimeLimit
+  },
+  {
+    path: '/finaceCheckInTimeLimit',
+    name: '版权金融办理时限',
+    meta: {
+      title: '版权金融办理时限'
+    },
+    component: CopyrightFinaceCheckInTimeLimit
   },
   {
     path: '/notFund',

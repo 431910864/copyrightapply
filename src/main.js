@@ -17,10 +17,10 @@ router.beforeEach((to, from, next) => {
   }
   next();
 })
-//import Vant, {Lazyload} from 'vant';
-//import 'vant/lib/index.css';
-//Vue.use(Lazyload);
-//Vue.use(Vant);
+// import Vant, {Lazyload} from 'vant';
+// import 'vant/lib/index.css';
+// Vue.use(Lazyload);
+// Vue.use(Vant);
 Vue.config.productionTip = false
 Vue.prototype.$axios = api;
 Vue.prototype.$locache = locache;

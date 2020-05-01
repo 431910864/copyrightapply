@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <div class="advantageSection">
+    <div class="advantageSection" @click="handelEvent('timeLimit')">
       <div style="width: 4rem; margin: 0 auto .3rem auto;">
         <van-divider slot :style="styleObj">
           ··· 办理时限 ···
@@ -191,6 +191,9 @@
             break
           case 'limit':
             this.show_2 = true;
+            break
+          case 'timeLimit':
+            this.$router.push({path: 'finaceCheckInTimeLimit'})
             break
           default:
             break

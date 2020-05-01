@@ -22,12 +22,12 @@
             </van-cell>
           </div>
           <div v-else>
-            <van-cell v-for="(vo, index) in item.list" :key="index" @click="handleEvent(vo, index)">
+            <van-cell v-for="(vo, index) in item.list" :key="index">
               <div style="display: flex;align-items: center;justify-content: space-between;padding-top: 5px;padding-bottom: 5px;">
                 <div>
                   <div>{{vo.fileName}}</div>
                 </div>
-                <div class="" style="color: rgb(46, 75, 212);" @click="down(vo.fileUrl)" :href="vo.fileUrl">下载</div>
+                <div class="" style="color: rgb(46, 75, 212);" @click.stop="down(vo.fileUrl)" :href="vo.fileUrl">下载</div>
               </div>
             </van-cell>
           </div>

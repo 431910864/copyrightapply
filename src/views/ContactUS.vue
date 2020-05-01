@@ -23,11 +23,13 @@
               <div class="title name">{{vo.realName}}</div>
               <div class="describe">{{vo.jobTitle}}</div>
               <div class="date">{{vo.mobile}}</div>
+              <div class="qqAccount">QQ: {{vo.qq}}</div>
             </div>
             <div class="wxrcode">
               <span></span>
-              <div>
+              <div class="portraitWrapper">
                 <img :src="vo.wxQrcodeImage">
+                <img class="portrait" :src="vo.profilePhotoUrl" v-if="vo.profilePhotoUrl">
               </div>
             </div>
           </div>
@@ -162,7 +164,14 @@
             text-align: justify;
             font-weight: bold;
           }
-
+          .qqAccount{
+            font-family:PingFangSC-Medium;
+            font-size:.32rem;
+            color:#000000;
+            letter-spacing:0;
+            text-align:left;
+            margin-top: .2rem;
+          }
           .describe {
             font-family: PingFangSC-Regular;
             font-size: 0.28rem;
@@ -238,6 +247,18 @@
       width: 2.5rem;
       height: 2.6rem;
       position: relative;
+      .portraitWrapper{
+        position: relative;
+        .portrait{
+          width: .8rem;
+          height: .8rem;
+          position: absolute;
+          left: 50%;
+          margin-left: -.4rem;
+          top: 50%;
+          margin-top: -.4rem;
+        }
+      }
       div:after {
         content: '长按二维码咨询';
         position: absolute;
