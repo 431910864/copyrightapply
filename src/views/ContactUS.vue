@@ -17,8 +17,11 @@
             </div>
           </div>
         </div>
-        <van-cell style="margin: .3rem;width: auto;border-radius: .08rem;" v-for="(vo, index) in list" :key="index">
-          <div class="unit">
+        <van-cell style="width: auto;border-radius: .08rem;margin: .3rem;padding: 0!important" v-for="(vo, index) in list" :key="index">
+          <div v-if="vo.profilePhotoUrl" style="height: 140px;overflow: hidden;width: 100%;" :style="{background: `url(${vo.profilePhotoUrl})`, backgroundPosition: 'left center', backgroundSize: '100%'}">
+<!--            <img class="" style="width: 100%;" :src="'https://kukumber.utools.club/' + vo.profilePhotoUrl" >-->
+          </div>
+          <div class="unit" style="padding: 0.3rem 0.3rem !important;">
             <div class="contentDes">
               <div class="title name">{{vo.realName}}</div>
               <div class="describe">{{vo.jobTitle}}</div>
@@ -29,7 +32,7 @@
               <span></span>
               <div class="portraitWrapper">
                 <img :src="vo.wxQrcodeImage">
-                <img class="portrait" :src="vo.profilePhotoUrl" v-if="vo.profilePhotoUrl">
+<!--                <img class="portrait" :src="vo.profilePhotoUrl" v-if="vo.profilePhotoUrl">-->
               </div>
             </div>
           </div>
